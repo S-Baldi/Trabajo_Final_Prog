@@ -5,8 +5,12 @@ class sc1 extends Phaser.Scene{
 
 
   preload(){
-    this.load.tilemapTiledJSON('mapa', 'assets/Mapa/TileMap.json');
-    this.load.image('tiles', 'assets/Mapa/TileSet.png');
+    this.load.tilemapTiledJSON('mapa', 'assets/Mapa/Sc1.json');
+    this.load.image('plataformas', 'assets/Mapa/TileSet2.png');
+    this.load.image('fondomontaña', 'assets/Mapa/Fondo1.png');
+    this.load.image('fondomontaña2', 'assets/Mapa/Fondo2.png');
+    this.load.image('fondocielo', 'assets/Mapa/Cielo1.png');
+    this.load.image('fondocielo2', 'assets/Mapa/Cielo2.png');
 
     this.load.spritesheet('dude', 'assets/dude.png', {frameWidth:32, frameHeight: 48});
 
@@ -42,12 +46,23 @@ class sc1 extends Phaser.Scene{
 
     
     /* Color del fondo */
-    game.config.backgroundColor.setTo(108, 210, 222);
+    /* game.config.backgroundColor.setTo(108, 210, 222); */
 
     mapa = this.make.tilemap({ key : 'mapa'});
-    var tilesets = mapa.addTilesetImage('TileSet', 'tiles');
-
-    solidos = mapa.createDynamicLayer('solidos', tilesets, 0, 0);
+    var tilesets0 = mapa.addTilesetImage('TileSet2', 'plataformas');
+    var montaña1 = mapa.addTilesetImage('Fondo1', 'fondomontaña');
+    var montaña2 = mapa.addTilesetImage('Fondo2', 'fondomontaña2');
+    var backcielo1 = mapa.addTilesetImage('Cielo1', 'fondocielo');
+    var backcielo2 = mapa.addTilesetImage('Cielo2', 'fondocielo2');
+    
+    /* Colocamos las capas de tiles */
+    montaña2 = mapa.createLayer('fondo2', montaña2, 0, 0);
+    montaña1 = mapa.createLayer('fondo', montaña1, 0, 0); 
+    
+    backcielo1 = mapa.createLayer('cielo1', backcielo1, 0, 0);
+    backcielo2 = mapa.createLayer('cielo2', backcielo2, 0, 0);
+    
+    solidos = mapa.createLayer('solidos', tilesets0, 0, 0);
     solidos.setCollisionByProperty({ solido: true });
 
     /* Personaje */
