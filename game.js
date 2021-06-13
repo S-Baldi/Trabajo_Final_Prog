@@ -7,7 +7,7 @@ var config = {
       default: 'arcade',
       arcade: {
         gravity: { y: 350 },
-        debug: false
+        debug: true
       }
   },
   scene: [sc1, sc2]
@@ -16,3 +16,6 @@ var config = {
 var game = new Phaser.Game(config);
 
 var mapa;
+var player;
+var solidos;
+var cursors;
