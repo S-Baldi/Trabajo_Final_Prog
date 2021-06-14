@@ -10,20 +10,32 @@ var config = {
         debug: true
       }
   },
-  scene: [mp1, sc1, sc2]
+  scene: [mp1, sc1, sc2, h1, cr1]
 };
 
 var game = new Phaser.Game(config);
 
-var mapa;
+/* Variables en Comun */
 var player;
+var cursors;
+
+/* Variables Menu */
+var empezarSc1;
+var empezarSc2;
+var logoMenu;
+var fondoMenu;
+var botonAyuda;
+var botonCreditos;
+var creditos;
+var botonAtras;
+
+/* Variables Nivel 1 */
 var solidos;
 var backmontaña1;
 var backmontaña2;
 var backcielo1;
 var backcielo2;
-var cursors;
-var volverAtras;
+var mapa;
 
 /* Variables Nivel 2 */
 var backCueva11;
@@ -31,5 +43,9 @@ var backCueva22;
 var backCueva33;
 var backCueva44;
 var solidosCueva1;
+var mapa2;
 
-const saltoJugador = -500;
+/* Créditos */
+var logoPh;
+var logoU;
+var help;

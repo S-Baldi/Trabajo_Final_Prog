@@ -22,7 +22,15 @@ class mp1 extends Phaser.Scene{
     this.load.image('plataformaCueva', 'assets/Mapa2/cave_grass_joint_tileset.png');
 
     /* Personaje */
-    this.load.spritesheet('dude', 'assets/solda2.png', {frameWidth:315, frameHeight: 350});
+    this.load.spritesheet('dude', 'assets/solda2.png', {frameWidth:300, frameHeight: 345});
+
+    /* Menú */
+    this.load.image('logo', 'assets/logo.png')
+    this.load.image('fondo', 'assets/fondo.jpg')
+    
+    /* Créditos */
+    this.load.image('logoph', 'assets/logoPhaser.png')
+    this.load.image('logou', 'assets/logoU.png')
 
   }
   create()
@@ -48,17 +56,35 @@ class mp1 extends Phaser.Scene{
       repeat: -1
     });
 
-    var volverAtras = this.add.text(10, 8, 'Empezar', { font: 'bold 20pt Arial', fill: '#ffffff'})
+    /* Logo */
+    fondoMenu = this.add.image(400, 300, 'fondo')
+    logoMenu = this.add.image(700, 250, 'logo');
+
+    /* Botones */
+    empezarSc1 = this.add.text(500, 550, 'Empezar', { font: 'bold 20pt Arial', fill: '#ffffff'})
     .setInteractive()
-    .on('pointerover', () => this.add.text(10, 8, 'Empezar', { font: 'bold 20pt Arial', fontSize: '36px', fill: '#000000'}))
-    .on('pointerout', () => this.add.text(10, 8, 'Empezar', { font: 'bold 20pt Arial', fontSize: '36px', fill: '#446677'}))
+    .on('pointerover', () => this.add.text(500, 550, 'Empezar', { font: 'bold 20pt Arial', fontSize: '36px', fill: '#FF2D00'}))
+    .on('pointerout', () => this.add.text(500, 550, 'Empezar', { font: 'bold 20pt Arial', fontSize: '36px', fill: '#ffffff'}))
     .on('pointerdown', () => this.scene.start('escena1'))
 
-    var volverAtras = this.add.text(100, 400, 'Empezar2', { font: 'bold 20pt Arial', fill: '#ffffff'})
+    empezarSc2 = this.add.text(800, 550, 'Empezar2', { font: 'bold 20pt Arial', fill: '#ffffff'})
     .setInteractive()
-    .on('pointerover', () => this.add.text(100, 400, 'Empezar2', { font: 'bold 20pt Arial', fontSize: '36px', fill: '#000000'}))
-    .on('pointerout', () => this.add.text(100, 400, 'Empezar2', { font: 'bold 20pt Arial', fontSize: '36px', fill: '#446677'}))
+    .on('pointerover', () => this.add.text(800, 550, 'Empezar2', { font: 'bold 20pt Arial', fontSize: '36px', fill: '#FF2D00'}))
+    .on('pointerout', () => this.add.text(800, 550, 'Empezar2', { font: 'bold 20pt Arial', fontSize: '36px', fill: '#ffffff'}))
     .on('pointerdown', () => this.scene.start('escena2'))
+
+    botonAyuda = this.add.text(1000, 550, 'Ayuda', { font: 'bold 20pt Arial', fill: '#ffffff'})
+    .setInteractive()
+    .on('pointerover', () => this.add.text(1000, 550, 'Ayuda', { font: 'bold 20pt Arial', fontSize: '36px', fill: '#FF2D00'}))
+    .on('pointerout', () => this.add.text(1000, 550, 'Ayuda', { font: 'bold 20pt Arial', fontSize: '36px', fill: '#ffffff'}))
+    .on('pointerdown', () => this.scene.start('ayuda'))
+
+    botonCreditos = this.add.text(300, 550, 'Créditos', { font: 'bold 20pt Arial', fill: '#ffffff'})
+    .setInteractive()
+    .on('pointerover', () => this.add.text(300, 550, 'Créditos', { font: 'bold 20pt Arial', fontSize: '36px', fill: '#FF2D00'}))
+    .on('pointerout', () => this.add.text(300, 550, 'Créditos', { font: 'bold 20pt Arial', fontSize: '36px', fill: '#ffffff'}))
+    .on('pointerdown', () => this.scene.start('creditos')) 
+
   }
   
 

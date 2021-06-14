@@ -41,30 +41,11 @@ class sc1 extends Phaser.Scene{
     player = this.physics.add.sprite(100, 100, 'dude');
     /* player.setCollideWorldBounds(true); */
     player.setBounce(0.2);
-    player.setScale(0.18);
+    player.setScale(0.2);
 
     /* Cambiar tamaño de hitbox */
-    /* player.setSize(25, 0);  */
+    player.setSize(300, 300); 
 
-    this.anims.create({
-      key: 'left',
-      frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 7 }),
-      frameRate: 10,
-      repeat: -1
-    });
-
-    this.anims.create({
-      key: 'turn',
-      frames: [ { key: 'dude', frame: 7 } ],
-      frameRate: 20
-    });
-
-    this.anims.create({
-      key: 'right',
-      frames: this.anims.generateFrameNumbers('dude', { start: 8, end: 14 }),
-      frameRate: 10,
-      repeat: -1
-    });
 
     /* Primero: sacar colisiones del personaje con el mundo 
     this.camera.main.setBounds(0, 0, mapa.widthInPixels, mapa.heightInPixels); 
