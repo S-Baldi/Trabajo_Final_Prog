@@ -26,16 +26,13 @@ class sc1 extends Phaser.Scene{
     var cielos2 = mapa.addTilesetImage('Cielo2', 'fondocielo2');
     
     /* Colocamos las capas de tiles */
-    
-
-    backmontaña2 = mapa.createLayer('fondo2', montaña2, 0, 0);
-    backmontaña1 = mapa.createLayer('fondo1', montaña1, 0, 0);  
-    
-    solidos = mapa.createLayer('solidos', tilesets0, 0, 0);
-    solidos.setCollisionByProperty({ solido: true });
-
     backcielo1 = mapa.createLayer('cielo1', cielos1, 0, 0);
     backcielo2 = mapa.createLayer('cielo2', cielos2, 0, 0);
+    backmontaña2 = mapa.createLayer('fondo2', montaña2, 0, 0);
+    backmontaña1 = mapa.createLayer('fondo1', montaña1, 0, 0);
+    
+    solidos = mapa.createLayer('solidos', tilesets0, 0, 0);
+    solidos.setCollisionByProperty({ solido: true });    
 
     /* Personaje */
     player = this.physics.add.sprite(100, 100, 'dude');
@@ -46,10 +43,7 @@ class sc1 extends Phaser.Scene{
     /* Cambiar tamaño de hitbox */
     player.setSize(300, 300); 
 
-
-    /* Primero: sacar colisiones del personaje con el mundo 
-    this.camera.main.setBounds(0, 0, mapa.widthInPixels, mapa.heightInPixels); 
-    this.camera.main.starFollow(player); */
+    /* Primero: sacar colisiones del personaje con el mundo */    
     this.cameras.main.setBounds(0, 0, mapa.widthInPixels, mapa.heightInPixels);
     this.cameras.main.startFollow(player);    
 
