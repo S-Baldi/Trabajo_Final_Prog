@@ -24,6 +24,18 @@ class mp1 extends Phaser.Scene{
     /* Personaje */
     this.load.spritesheet('dude', 'assets/solda2.png', {frameWidth:300, frameHeight: 345});
 
+    /* Enemigo */
+    this.load.spritesheet('robot', 'assets/enemigo.png', {frameWidth:130, frameHeight:230})
+    
+    /* Moneda */
+    this.load.spritesheet('coin', 'assets/moneda.png', {frameWidth:16, frameHeight:16});
+
+    /* Powerups */
+    this.load.image('poder1', 'assets/Power/Blue/frame 1.png')
+    this.load.image('poder2', 'assets/Power/Green/frame 1.png')
+    this.load.image('poder3', 'assets/Power/Yellow/frame 1.png')
+    this.load.image('poder4', 'assets/Power/Red/frame 1.png')
+
     /* Menú */
     this.load.image('logo', 'assets/logo.png')
     this.load.image('fondo', 'assets/fondo.jpg')
@@ -38,27 +50,27 @@ class mp1 extends Phaser.Scene{
     /* Controles personaje */
     this.anims.create({
       key: 'left',
-      frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 3 }),
+      frames: this.anims.generateFrameNumbers('dude', { start: 5, end: 0 }),
       frameRate: 10,
       repeat: -1
     });
 
     this.anims.create({
       key: 'turn',
-      frames: [ { key: 'dude', frame: 4 } ],
+      frames: [ { key: 'dude', frame: 7 } ],
       frameRate: 20
     });
 
     this.anims.create({
       key: 'right',
-      frames: this.anims.generateFrameNumbers('dude', { start: 8, end: 14 }),
+      frames: this.anims.generateFrameNumbers('dude', { start: 8, end: 13 }),
       frameRate: 10,
       repeat: -1
     });
 
     /* Logo */
-    fondoMenu = this.add.image(400, 300, 'fondo')
-    logoMenu = this.add.image(700, 250, 'logo');
+    /* fondoMenu = this.add.image(700, 300, 'fondo').setScale(2); */
+    logoMenu = this.add.image(700, 250, 'logo').setScale(0.8);
 
     /* Botones */
     empezarSc1 = this.add.text(500, 550, 'Empezar', { font: 'bold 20pt Arial', fill: '#ffffff'})

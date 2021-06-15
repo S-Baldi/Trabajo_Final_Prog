@@ -30,18 +30,19 @@ class sc2 extends Phaser.Scene{
     player = this.physics.add.sprite(100, 100, 'dude');
     /* player.setCollideWorldBounds(true); */
     player.setBounce(0.2);
-    player.setScale(0.18);
-
+    player.setScale(0.2);
     /* Cambiar tamaño de hitbox */
-    /* player.setSize(25, 0);  */
-
-    /* Primero: sacar colisiones del personaje con el mundo 
-    this.camera.main.setBounds(0, 0, mapa.widthInPixels, mapa.heightInPixels); 
-    this.camera.main.starFollow(player); */
+    player.setSize(200, 300);
     this.cameras.main.setBounds(0, 0, mapa2.widthInPixels, mapa2.heightInPixels);
     this.cameras.main.startFollow(player);    
-
     this.physics.add.collider(player, solidosCueva1);
+
+    /* Robot */
+    enemy = this.physics.add.sprite(250, 200, 'robot');
+    enemy.setBounce(0.2);
+    enemy.setScale(0.25);
+    enemy.setSize(140 , 230);
+    this.physics.add.collider(enemy, solidosCueva1);
   }
 
   update(){
