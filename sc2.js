@@ -35,14 +35,45 @@ class sc2 extends Phaser.Scene{
     player.setSize(200, 300);
     this.cameras.main.setBounds(0, 0, mapa2.widthInPixels, mapa2.heightInPixels);
     this.cameras.main.startFollow(player);    
-    this.physics.add.collider(player, solidosCueva1);
+    
+   /* Robot */
+  enemy = this.physics.add.sprite(250, 200, 'robot');
+  enemy2 = this.physics.add.sprite(850, 200, 'robot');
+  enemy.setBounce(0.2);
+  enemy.setScale(0.25);
+  enemy.setSize(140 , 230);
+  enemy2.setBounce(0.2);
+  enemy2.setScale(0.25);
+  enemy2.setSize(140 , 230);
+  let timeline = this.tweens.timeline({
+    targets: enemy,
+    ease: 'Power1',
+    duration: 2000,
+    loop: -1,
+    yoyo:-1,
+    tweens:[
+      {x:enemy.x +400}
+    ]
+  })
 
-    /* Robot */
-    enemy = this.physics.add.sprite(250, 200, 'robot');
-    enemy.setBounce(0.2);
-    enemy.setScale(0.25);
-    enemy.setSize(140 , 230);
+  let timeline2 = this.tweens.timeline({
+    targets: enemy2,
+    ease: 'Power1',
+    duration: 2000,
+    loop: -1,
+    yoyo:-1,
+    tweens:[
+      {x:enemy2.x +200}
+    ]
+  })  
+
+    /* Colliders */    
+    this.physics.add.collider(player, solidosCueva1);
     this.physics.add.collider(enemy, solidosCueva1);
+    this.physics.add.collider(player, enemy);
+    this.physics.add.collider(player, enemy2);
+    this.physics.add.collider(enemy2, solidosCueva1);
+    this.physics.add.collider(player, enemy2);
   }
 
   update(){

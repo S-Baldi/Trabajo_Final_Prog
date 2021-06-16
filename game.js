@@ -7,7 +7,7 @@ var config = {
       default: 'arcade',
       arcade: {
         gravity: { y: 350 },
-        debug: false
+        debug: true
       }
   },
   scene: [mp1, sc1, sc2, h1, cr1]
@@ -18,12 +18,14 @@ var game = new Phaser.Game(config);
 /* Variables en Comun */
 var player;
 var enemy;
+var enemy2;
 var cursors;
 var moneda;
 var power1;
 var power2;
 var power3;
 var power4;
+
 
 /* Variables Menu */
 var empezarSc1;
@@ -59,6 +61,9 @@ var volverMenu;
 
 /* Ayuda */
 var volverMenu2;
+var help2;
+var teclas;
+var imgPerro;
 
 /* Bala */
 /* var fireButton;

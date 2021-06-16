@@ -38,7 +38,11 @@ class mp1 extends Phaser.Scene{
 
     /* Menú */
     this.load.image('logo', 'assets/logo.png')
-    this.load.image('fondo', 'assets/fondo.jpg')
+    this.load.image('fondo', 'assets/fondo.png')
+
+    /* Ayuda */
+    this.load.image('teclas', 'assets/teclas.png')
+    this.load.image('dogi', 'assets/Perro/dog.png')
     
     /* Créditos */
     this.load.image('logoph', 'assets/logoPhaser.png')
@@ -69,7 +73,7 @@ class mp1 extends Phaser.Scene{
     });
 
     /* Logo */
-    /* fondoMenu = this.add.image(700, 300, 'fondo').setScale(2); */
+    fondoMenu = this.add.image(700, 300, 'fondo');
     logoMenu = this.add.image(700, 250, 'logo').setScale(0.8);
 
     /* Botones */

@@ -40,16 +40,25 @@ class sc1 extends Phaser.Scene{
     player.setSize(200, 300); 
     /* Primero: sacar colisiones del personaje con el mundo */    
     this.cameras.main.setBounds(0, 0, mapa.widthInPixels, mapa.heightInPixels);
-    this.cameras.main.startFollow(player);  
+    this.cameras.main.startFollow(player);
 
     this.physics.add.collider(player, solidos);
 
     /* Moneda */
     moneda = this.physics.add.sprite (150, 900, 'coin');
-    this.physics.add.collider(moneda, solidos)
+    this.physics.add.collider(moneda, solidos);
     moneda.setBounce(1);
     moneda.setScale(1.5);
     /* Animacion moneda */
+    /* this.anims.create({
+      key: 'giro',
+      frames:this.anims.generateFrameNumbers('coin', {
+        start: 0,
+        end: 4
+      }),
+      repeat: -1
+    });
+    this.moneda.anims.play('giro'); */
 
 
     /* Powerups */
