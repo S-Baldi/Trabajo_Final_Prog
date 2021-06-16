@@ -19,6 +19,10 @@ var game = new Phaser.Game(config);
 var player;
 var enemy;
 var enemy2;
+var enemy3;
+var enemy4;
+var enemy5;
+var enemy6;
 var cursors;
 var moneda;
 var power1;
@@ -36,6 +40,8 @@ var botonAyuda;
 var botonCreditos;
 var creditos;
 var botonAtras;
+var teclaR;
+var teclaP;
 
 /* Variables Nivel 1 */
 var solidos;

@@ -9,6 +9,8 @@ class sc2 extends Phaser.Scene{
   create(){
     if (cursors =! undefined){
       cursors = this.input.keyboard.createCursorKeys();
+      teclaR = this.input.keyboard.addKey('R');
+      teclaP = this.input.keyboard.addKey('P');
     }
 
     mapa2 = this.make.tilemap({ key : 'mapa2'});
@@ -37,46 +39,139 @@ class sc2 extends Phaser.Scene{
     this.cameras.main.startFollow(player);    
     
    /* Robot */
-  enemy = this.physics.add.sprite(250, 200, 'robot');
-  enemy2 = this.physics.add.sprite(850, 200, 'robot');
-  enemy.setBounce(0.2);
-  enemy.setScale(0.25);
-  enemy.setSize(140 , 230);
-  enemy2.setBounce(0.2);
-  enemy2.setScale(0.25);
-  enemy2.setSize(140 , 230);
-  let timeline = this.tweens.timeline({
-    targets: enemy,
-    ease: 'Power1',
-    duration: 2000,
-    loop: -1,
-    yoyo:-1,
-    tweens:[
-      {x:enemy.x +400}
-    ]
-  })
+    enemy = this.physics.add.sprite(149, 300, 'robot');
+    enemy2 = this.physics.add.sprite(555, 500, 'robot');
+    enemy3 = this.physics.add.sprite(55, 900, 'robot');
+    enemy4 = this.physics.add.sprite(1235, 400, 'robot');
+    enemy5 = this.physics.add.sprite(1300, 600, 'robot');
+    enemy6 = this.physics.add.sprite(850, 600, 'robot');
 
-  let timeline2 = this.tweens.timeline({
-    targets: enemy2,
-    ease: 'Power1',
-    duration: 2000,
-    loop: -1,
-    yoyo:-1,
-    tweens:[
-      {x:enemy2.x +200}
-    ]
-  })  
+    enemy.setBounce(0.2);
+    enemy.setScale(0.25);
+    enemy.setSize(140 , 230);
+    enemy.enableBody = true;
+
+    enemy2.setBounce(0.2);
+    enemy2.setScale(0.25);
+    enemy2.setSize(140 , 230);
+    enemy2.enableBody = true;
+
+    enemy3.setBounce(0.2);
+    enemy3.setScale(0.25);
+    enemy3.setSize(140 , 230);
+    enemy3.enableBody = true;
+
+    enemy4.setBounce(0.2);
+    enemy4.setScale(0.25);
+    enemy4.setSize(140 , 230);
+    enemy4.enableBody = true;
+
+    enemy5.setBounce(0.2);
+    enemy5.setScale(0.25);
+    enemy5.setSize(140 , 230);
+    enemy5.enableBody = true;
+
+    enemy6.setBounce(0.2);
+    enemy6.setScale(0.25);
+    enemy6.setSize(140 , 230);
+    enemy6.enableBody = true;
+  //Movimiento del enemigo
+
+    //enemy
+    if(enemy.x<155)
+    {
+      enemy.setVelocityX(+100)
+      //anims.play("derecha", true);
+    }
+    if(enemy.x>295)
+    {
+      enemy.setVelocityX(-100)
+      // anims.play("izquierda", true);
+    }
+
+    //enemy2
+    if(enemy2.x<560)
+    {
+      enemy2.setVelocityX(+100)
+      // anims.play("derecha", true);
+    }
+    if(enemy2.x>740)
+    {
+      enemy2.setVelocityX(-100)
+      // anims.play("izquierda", true);
+    }
+
+    //enemy3
+    if(enemy3.x<60)
+    {
+      enemy3.setVelocityX(+200)
+      // anims.play("derecha", true);
+    }
+    if(enemy3.x>1500)
+    {
+      enemy3.setVelocityX(-200)
+      // anims.play("izquierda", true);
+    }
+
+    //enemy4
+    if(enemy4.x<1240)
+    {
+      enemy4.setVelocityX(+100)
+      //anims.play("derecha", true);
+    }
+    if(enemy4.x>1360)
+    {
+      enemy4.setVelocityX(-100)
+      // anims.play("izquierda", true);
+    }
+
+    //enemy5
+    if(enemy5.x<1160)
+    {
+      enemy5.setVelocityX(+100)
+      // anims.play("derecha", true);
+    }
+    if(enemy5.x>1290)
+    {
+      enemy5.setVelocityX(-100)
+      // anims.play("izquierda", true);
+    }
+
+    //enemy6
+    if(enemy6.x<690)
+    {
+      enemy6.setVelocityX(+100)
+      // anims.play("derecha", true);
+    }
+    if(enemy6.x>849)
+    {
+      enemy6.setVelocityX(-100)
+      // anims.play("izquierda", true);
+    }
 
     /* Colliders */    
     this.physics.add.collider(player, solidosCueva1);
-    this.physics.add.collider(enemy, solidosCueva1);
-    this.physics.add.collider(player, enemy);
-    this.physics.add.collider(player, enemy2);
+    this.physics.add.collider(enemy, solidosCueva1);  
+    this.physics.add.collider(enemy, player);
+    this.physics.add.collider(enemy2, player);
     this.physics.add.collider(enemy2, solidosCueva1);
-    this.physics.add.collider(player, enemy2);
+    this.physics.add.collider(enemy2, player);
+    this.physics.add.collider(enemy3, solidosCueva1);
+    this.physics.add.collider(enemy3, player);
+    this.physics.add.collider(enemy4, solidosCueva1);
+    this.physics.add.collider(enemy4, player);
+    this.physics.add.collider(enemy5, solidosCueva1);
+    this.physics.add.collider(enemy5, player)
+    this.physics.add.collider(enemy6, solidosCueva1);
+    this.physics.add.collider(enemy6, player);
   }
 
   update(){
+    if (teclaR.isDown)
+    {
+      this.scene.restart();
+    }
+
     if (cursors.left.isDown)
     {
       player.setVelocityX(-200);

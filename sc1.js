@@ -13,6 +13,8 @@ class sc1 extends Phaser.Scene{
 
     if (cursors =! undefined){
       cursors = this.input.keyboard.createCursorKeys();
+      teclaR = this.input.keyboard.addKey('R');
+      teclaP = this.input.keyboard.addKey('P');
     }
     
     mapa = this.make.tilemap({ key : 'mapa'});
@@ -50,7 +52,7 @@ class sc1 extends Phaser.Scene{
     moneda.setBounce(1);
     moneda.setScale(1.5);
     /* Animacion moneda */
-    /* this.anims.create({
+    this.anims.create({
       key: 'giro',
       frames:this.anims.generateFrameNumbers('coin', {
         start: 0,
@@ -58,7 +60,7 @@ class sc1 extends Phaser.Scene{
       }),
       repeat: -1
     });
-    this.moneda.anims.play('giro'); */
+    moneda.anims.play('giro');
 
 
     /* Powerups */
@@ -93,6 +95,11 @@ class sc1 extends Phaser.Scene{
   }
 
   update(){
+    if (teclaR.isDown)
+    {
+      this.scene.restart();
+    }
+
     if (cursors.left.isDown)
     {
       player.setVelocityX(-200);
@@ -120,8 +127,8 @@ class sc1 extends Phaser.Scene{
       /* weapon.fireAngle = Phaser.ANGLE_UP; */
     }
 
-     /* if (fireButton.isDown) {
-        weapon.fire();
+    /* if (fireButton.isDown) {
+      weapon.fire();
     } */
   }
 
