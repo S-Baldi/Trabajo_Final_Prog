@@ -20,6 +20,7 @@ class mp1 extends Phaser.Scene{
     this.load.image('fondoCueva3', 'assets/Mapa2/background cave 3.png');
     this.load.image('fondoCueva4', 'assets/Mapa2/background cave 4.png');
     this.load.image('plataformaCueva', 'assets/Mapa2/cave_grass_joint_tileset.png');
+    this.load.image('puasCueva', 'assets/Mapa2/Puas.png')
 
     /* Personaje */
     this.load.spritesheet('dude', 'assets/solda2.png', {frameWidth:300, frameHeight: 345});

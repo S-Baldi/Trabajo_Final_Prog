@@ -7,7 +7,7 @@ var config = {
       default: 'arcade',
       arcade: {
         gravity: { y: 350 },
-        debug: true
+        debug: false
       }
   },
   scene: [mp1, sc1, sc2, h1, cr1]
@@ -29,7 +29,9 @@ var power1;
 var power2;
 var power3;
 var power4;
-
+var timedEvent;
+var initialTime;
+var timeText;
 
 /* Variables Menu */
 var empezarSc1;
@@ -58,6 +60,8 @@ var backCueva33;
 var backCueva44;
 var solidosCueva1;
 var mapa2;
+var puas11;
+var puas22;
 
 /* Créditos */
 var logoPh;
