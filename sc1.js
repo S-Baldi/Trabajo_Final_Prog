@@ -23,7 +23,11 @@ class sc1 extends Phaser.Scene{
     var montaña2 = mapa.addTilesetImage('Fondo2', 'fondomontaña2');
     var cielos1 = mapa.addTilesetImage('Cielo1', 'fondocielo');
     var cielos2 = mapa.addTilesetImage('Cielo2', 'fondocielo2');
-    
+    var solidos2 = mapa.addTilesetImage('TileSet2', 'plataformas');
+
+    /* solidos 2 */
+    solidos22 = mapa.createLayer('solidos2', solidos2, 0, 0);
+    solidos22.setCollisionByProperty({ solidoenemy: true})    
     /* Colocamos las capas de tiles */
     backcielo1 = mapa.createLayer('cielo1', cielos1, 0, 0);
     backcielo2 = mapa.createLayer('cielo2', cielos2, 0, 0);
@@ -32,7 +36,7 @@ class sc1 extends Phaser.Scene{
     /* Propiedad de colision al tile */
     solidos = mapa.createLayer('solidos', tilesets0, 0, 0);
     solidos.setCollisionByProperty({ solido: true });    
-
+    
     /* Personaje */
     player = this.physics.add.sprite(50, 800, 'dude');
     /* player.setCollideWorldBounds(true); */
@@ -43,6 +47,36 @@ class sc1 extends Phaser.Scene{
     /* Primero: sacar colisiones del personaje con el mundo */    
     this.cameras.main.setBounds(0, 0, mapa.widthInPixels, mapa.heightInPixels);
     this.cameras.main.startFollow(player);
+
+    enemy = this.physics.add.group({
+      key: 'robot',
+      repeat: 4,
+      setXY:{x:180, y:300, stepX:330}
+    })
+    enemy.children.iterate(function (child){
+      child.setBounce(0.2);
+      child.setScale(0.25);
+      child.setSize(140 , 230);      
+    })    
+    let timeline = this.tweens.timeline({
+      targets: enemy,
+      ease: 'Power4',
+      duration: 2000,
+      loop: -1,
+      yoyo:-1,
+      tweens:[
+        {x:400}
+      ]
+    })
+    this.anims.create({
+      key: 'caminar',
+      frames:this.anims.generateFrameNumbers('robot', {
+        start: 0,
+        end: 5
+      }),
+      repeat: -1
+    });
+    enemy.playAnimation('caminar'); 
 
 
     /* Moneda */    
@@ -57,7 +91,7 @@ class sc1 extends Phaser.Scene{
       child.setBounce(1);
       child.setScale(1.5);
     }) 
-    /* this.anims.create({
+    this.anims.create({
       key: 'giro',
       frames:this.anims.generateFrameNumbers('coin', {
         start: 0,
@@ -65,7 +99,7 @@ class sc1 extends Phaser.Scene{
       }),
       repeat: -1
     });
-    moneda.anims.play('giro'); */  
+    moneda.playAnimation('giro');  
 
 
     /* Powerups */
@@ -74,6 +108,22 @@ class sc1 extends Phaser.Scene{
     this.physics.add.collider(power1, solidos);
     power1.setBounce(1);
 
+    /* PowerupAzul */
+    powerAzul = this.physics.add.sprite (400, 900, 'poderAzul');
+    this.physics.add.collider(powerAzul, solidos);
+    powerAzul.setScale(0.1);
+
+    this.anims.create({
+      key: 'giroblue',
+      frames:this.anims.generateFrameNumbers('poderAzul.', {
+        start: 0,
+        end: 5
+      }),
+      repeat: -1
+    });
+    powerAzul.anims.play('giroblue');
+
+    /* Power2 */    
     power2 = this.physics.add.sprite (250, 900, 'poder2');
     power2.setScale(0.1);
     this.physics.add.collider(power2, solidos);
@@ -89,133 +139,16 @@ class sc1 extends Phaser.Scene{
     this.physics.add.collider(power4, solidos);
     power4.setBounce(1);
 
-    /* Robot */
-    enemy = this.physics.add.sprite(149, 300, 'robot');
-    enemy2 = this.physics.add.sprite(555, 500, 'robot');
-    enemy3 = this.physics.add.sprite(55, 900, 'robot');
-    enemy4 = this.physics.add.sprite(1235, 400, 'robot');
-    enemy5 = this.physics.add.sprite(1300, 600, 'robot');
-    enemy6 = this.physics.add.sprite(850, 600, 'robot');
-
-    enemy.setBounce(0.2);
-    enemy.setScale(0.25);
-    enemy.setSize(140 , 230);
-    enemy.enableBody = true;
-
-    enemy2.setBounce(0.2);
-    enemy2.setScale(0.25);
-    enemy2.setSize(140 , 230);
-    enemy2.enableBody = true;
-
-    enemy3.setBounce(0.2);
-    enemy3.setScale(0.25);
-    enemy3.setSize(140 , 230);
-    enemy3.enableBody = true;
-
-    enemy4.setBounce(0.2);
-    enemy4.setScale(0.25);
-    enemy4.setSize(140 , 230);
-    enemy4.enableBody = true;
-
-    enemy5.setBounce(0.2);
-    enemy5.setScale(0.25);
-    enemy5.setSize(140 , 230);
-    enemy5.enableBody = true;
-
-    enemy6.setBounce(0.2);
-    enemy6.setScale(0.25);
-    enemy6.setSize(140 , 230);
-    enemy6.enableBody = true;
-  //Movimiento del enemigo
-    //enemy
-    if(enemy.x<155)
-    {
-      enemy.setVelocityX(+100)
-      //anims.play("derecha", true);
-    }
-    if(enemy.x>295)
-    {
-      enemy.setVelocityX(-100)
-      // anims.play("izquierda", true);
-    }
-
-    //enemy2
-    if(enemy2.x<560)
-    {
-      enemy2.setVelocityX(+100)
-      // anims.play("derecha", true);
-    }
-    if(enemy2.x>740)
-    {
-      enemy2.setVelocityX(-100)
-      // anims.play("izquierda", true);
-    }
-
-    //enemy3
-    if(enemy3.x<60)
-    {
-      enemy3.setVelocityX(+200)
-      // anims.play("derecha", true);
-    }
-    if(enemy3.x>1500)
-    {
-      enemy3.setVelocityX(-200)
-      // anims.play("izquierda", true);
-    }
-
-    //enemy4
-    if(enemy4.x<1240)
-    {
-      enemy4.setVelocityX(+100)
-      //anims.play("derecha", true);
-    }
-    if(enemy4.x>1360)
-    {
-      enemy4.setVelocityX(-100)
-      // anims.play("izquierda", true);
-    }
-
-    //enemy5
-    if(enemy5.x<1160)
-    {
-      enemy5.setVelocityX(+100)
-      // anims.play("derecha", true);
-    }
-    if(enemy5.x>1290)
-    {
-      enemy5.setVelocityX(-100)
-      // anims.play("izquierda", true);
-    }
-
-    //enemy6
-    if(enemy6.x<690)
-    {
-      enemy6.setVelocityX(+100)
-      // anims.play("derecha", true);
-    }
-    if(enemy6.x>849)
-    {
-      enemy6.setVelocityX(-100)
-      // anims.play("izquierda", true);
-    }
-
+    
     /* Colliders */
     this.physics.add.collider(player, solidos);
+    this.physics.add.collider(player, enemy);
     this.physics.add.collider(moneda, solidos);
-    this.physics.add.collider(moneda, player);
     this.physics.add.collider(enemy, solidos);
-    this.physics.add.collider(enemy, player);
-    this.physics.add.collider(enemy2, player);
-    this.physics.add.collider(enemy2, solidos);
-    this.physics.add.collider(enemy2, player);
-    this.physics.add.collider(enemy3, solidos);
-    this.physics.add.collider(enemy3, player);
-    this.physics.add.collider(enemy4, solidos);
-    this.physics.add.collider(enemy4, player);
-    this.physics.add.collider(enemy5, solidos);
-    this.physics.add.collider(enemy5, player);
-    this.physics.add.collider(enemy6, solidos);
-    this.physics.add.collider(enemy6, player);
+    this.physics.add.collider(enemy, solidos22);
+    
+    /* Overlaps */
+    this.physics.add.overlap(player, moneda, this.juntarMonedas, null, this);
 
     /* BALA */
     /*  weapon = game.add.weapon(10, 'bala');
@@ -231,6 +164,9 @@ class sc1 extends Phaser.Scene{
     //timedEvent = this.time.delayedCall(1000, this.onSecond, [], this, true);
     timedEvent = this.time.addEvent({ delay: 1000, callback: this.onSecond, callbackScope: this, loop: true });
     timeText = this.add.text(600, 900, '', { fontSize: '32px', fill: '#000' }); */
+
+    scoreText1 = this.add.text(672, 10, 'Score\n0', { font: 'bold 30pt Arial', fontSize: '36px', fill: '#fff', align:'center'});
+    gameOver = false;
   }
 
   update(){
@@ -269,6 +205,24 @@ class sc1 extends Phaser.Scene{
     /* if (fireButton.isDown) {
       weapon.fire();
     } */
+
+    if (enemy.x > 0){
+      enemy.setVelocityX(+300)
+    }    
+
+    if (gameOver){
+      return;
+    }
+  }
+  juntarMonedas (player, moneda){
+    moneda.disableBody(true, true);
+    scoreNivel1 += 10;
+    scoreText1.setText('Puntaje\n' + scoreNivel1);
+  }
+
+  gameOver (player, enemy){
+    gameOver = true;
+    this.physics.pause();  
   }
 
 

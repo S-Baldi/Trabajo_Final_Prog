@@ -26,6 +26,7 @@ var enemy6;
 var cursors;
 var moneda;
 var power1;
+var powerAzul;
 var power2;
 var power3;
 var power4;
@@ -47,11 +48,15 @@ var teclaP;
 
 /* Variables Nivel 1 */
 var solidos;
+var solidos22;
 var backmontaña1;
 var backmontaña2;
 var backcielo1;
 var backcielo2;
 var mapa;
+var scoreNivel1 = 0;
+var scoreText1;
+var gameOver;
 
 /* Variables Nivel 2 */
 var backCueva11;
@@ -62,6 +67,9 @@ var solidosCueva1;
 var mapa2;
 var puas11;
 var puas22;
+var scoreNivel2;
+var scoreText2;
+var gameOver1;
 
 /* Créditos */
 var logoPh;

@@ -33,6 +33,7 @@ class mp1 extends Phaser.Scene{
 
     /* Powerups */
     this.load.image('poder1', 'assets/Power/Blue/frame 1.png')
+    this.load.spritesheet('poderAzul', 'assets/Power/Blue/powerB.png', {frameWidth:320, frameHeight:400})
     this.load.image('poder2', 'assets/Power/Green/frame 1.png')
     this.load.image('poder3', 'assets/Power/Yellow/frame 1.png')
     this.load.image('poder4', 'assets/Power/Red/frame 1.png')

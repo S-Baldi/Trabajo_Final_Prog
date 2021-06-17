@@ -99,7 +99,40 @@ enemy6.setScale(0.25);
 enemy6.setSize(140 , 230);
 enemy6.enableBody = true;
 
-//Movimiento del enemigo
+
+  }
+
+  update(){
+    if (teclaR.isDown)
+    {
+      this.scene.restart();
+    }
+
+    if (cursors.left.isDown)
+    {
+      player.setVelocityX(-200);
+      player.anims.play('left', true);
+    }
+
+    else if (cursors.right.isDown)
+    {
+      player.setVelocityX(200);
+      player.anims.play('right', true);
+    }
+
+    else
+    {
+      player.setVelocityX(0);
+      player.anims.play('turn');
+    }
+    
+
+    if (cursors.up.isDown && player.body.blocked.down)
+    {     
+      player.setVelocityY(-400);  
+    }
+
+    //Movimiento del enemigo
 
 //enemy
 if(enemy.x<185)
@@ -172,37 +205,6 @@ if(enemy6.x>1450)
   enemy6.setVelocityX(-200)
   // enemy.anims.play("izquierda", true);
 }
-  }
-
-  update(){
-    if (teclaR.isDown)
-    {
-      this.scene.restart();
-    }
-
-    if (cursors.left.isDown)
-    {
-      player.setVelocityX(-200);
-      player.anims.play('left', true);
-    }
-
-    else if (cursors.right.isDown)
-    {
-      player.setVelocityX(200);
-      player.anims.play('right', true);
-    }
-
-    else
-    {
-      player.setVelocityX(0);
-      player.anims.play('turn');
-    }
-    
-
-    if (cursors.up.isDown && player.body.blocked.down)
-    {     
-      player.setVelocityY(-400);  
-    }
   }
 
 
