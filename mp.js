@@ -26,29 +26,29 @@ class mp1 extends Phaser.Scene{
     this.load.spritesheet('dude', 'assets/solda2.png', {frameWidth:300, frameHeight: 345});
 
     /* Enemigo */
-    this.load.spritesheet('robot', 'assets/enemigo.png', {frameWidth:130, frameHeight:230})
+    this.load.spritesheet('robot', 'assets/enemigo.png', {frameWidth:130, frameHeight:230});
     
     /* Moneda */
     this.load.spritesheet('coin', 'assets/moneda.png', {frameWidth:16, frameHeight:16});
 
     /* Powerups */
-    this.load.image('poder1', 'assets/Power/Blue/frame 1.png')
-    this.load.spritesheet('poderAzul', 'assets/Power/Blue/powerB.png', {frameWidth:320, frameHeight:400})
-    this.load.image('poder2', 'assets/Power/Green/frame 1.png')
-    this.load.image('poder3', 'assets/Power/Yellow/frame 1.png')
-    this.load.image('poder4', 'assets/Power/Red/frame 1.png')
+    this.load.image('poder1', 'assets/Power/Blue/frame 1.png');
+    this.load.spritesheet('poderAzul', 'assets/Power/Blue/powerB.png', {frameWidth:320, frameHeight:400});
+    this.load.image('poder2', 'assets/Power/Green/frame 1.png');
+    this.load.image('poder3', 'assets/Power/Yellow/frame 1.png');
+    this.load.image('poder4', 'assets/Power/Red/frame 1.png');
 
     /* Menú */
-    this.load.image('logo', 'assets/logo.png')
-    this.load.image('fondo', 'assets/fondo.png')
+    this.load.image('logo', 'assets/logo.png');
+    this.load.image('fondo', 'assets/fondo.png');
 
     /* Ayuda */
-    this.load.image('teclas', 'assets/teclas.png')
-    this.load.image('dogi', 'assets/Perro/dog.png')
+    this.load.image('teclas', 'assets/teclas.png');
+    this.load.image('dogi', 'assets/Perro/dog.png');
     
     /* Créditos */
-    this.load.image('logoph', 'assets/logoPhaser.png')
-    this.load.image('logou', 'assets/logoU.png')
+    this.load.image('logoph', 'assets/logoPhaser.png');
+    this.load.image('logou', 'assets/logoU.png');
 
   }
   create()
@@ -73,6 +73,8 @@ class mp1 extends Phaser.Scene{
       frameRate: 10,
       repeat: -1
     });
+
+   
 
     /* Logo */
     fondoMenu = this.add.image(700, 300, 'fondo');

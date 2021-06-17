@@ -60,7 +60,7 @@ class sc1 extends Phaser.Scene{
     })    
     let timeline = this.tweens.timeline({
       targets: enemy,
-      ease: 'Power4',
+      ease: 'Circ',
       duration: 2000,
       loop: -1,
       yoyo:-1,
@@ -68,7 +68,7 @@ class sc1 extends Phaser.Scene{
         {x:400}
       ]
     })
-    this.anims.create({
+    /* this.anims.create({
       key: 'caminar',
       frames:this.anims.generateFrameNumbers('robot', {
         start: 0,
@@ -76,7 +76,7 @@ class sc1 extends Phaser.Scene{
       }),
       repeat: -1
     });
-    enemy.playAnimation('caminar'); 
+    enemy.playAnimation('caminar') */; 
 
 
     /* Moneda */    
@@ -113,15 +113,15 @@ class sc1 extends Phaser.Scene{
     this.physics.add.collider(powerAzul, solidos);
     powerAzul.setScale(0.1);
 
-    this.anims.create({
+   /*  this.anims.create({
       key: 'giroblue',
       frames:this.anims.generateFrameNumbers('poderAzul.', {
         start: 0,
         end: 5
       }),
       repeat: -1
-    });
-    powerAzul.anims.play('giroblue');
+    });    
+    powerAzul.anims.play('giroblue', true); */
 
     /* Power2 */    
     power2 = this.physics.add.sprite (250, 900, 'poder2');
@@ -165,7 +165,7 @@ class sc1 extends Phaser.Scene{
     timedEvent = this.time.addEvent({ delay: 1000, callback: this.onSecond, callbackScope: this, loop: true });
     timeText = this.add.text(600, 900, '', { fontSize: '32px', fill: '#000' }); */
 
-    scoreText1 = this.add.text(672, 10, 'Score\n0', { font: 'bold 30pt Arial', fontSize: '36px', fill: '#fff', align:'center'});
+    scoreText1 = this.add.text(400, 300, 'Score\n0', { font: 'bold 30pt Arial', fontSize: '36px', fill: '#fff', align:'center'});
     gameOver = false;
   }
 
@@ -185,7 +185,7 @@ class sc1 extends Phaser.Scene{
     else if (cursors.right.isDown)
     {
       player.setVelocityX(200);
-      player.anims.play('right', true);
+      player.anims.play('right', true); 
       /* weapon.fireAngle = Phaser.ANGLE_RIGHT; */
     }
 
@@ -207,7 +207,7 @@ class sc1 extends Phaser.Scene{
     } */
 
     if (enemy.x > 0){
-      enemy.setVelocityX(+300)
+      enemy.setVelocityX(+100)
     }    
 
     if (gameOver){

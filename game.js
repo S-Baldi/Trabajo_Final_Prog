@@ -7,7 +7,7 @@ var config = {
       default: 'arcade',
       arcade: {
         gravity: { y: 350 },
-        debug: false
+        debug: true
       }
   },
   scene: [mp1, sc1, sc2, h1, cr1]
