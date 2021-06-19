@@ -10,7 +10,7 @@ var config = {
         debug: true
       }
   },
-  scene: [mp1, sc1, sc2, h1, cr1]
+  scene: [mp1, sc1, sc2, h1, cr1, go1, gw1]
 };
 
 var game = new Phaser.Game(config);
@@ -25,14 +25,19 @@ var enemy5;
 var enemy6;
 var cursors;
 var moneda;
+var monedaR;
 var power1;
 var powerAzul;
 var power2;
 var power3;
 var power4;
-var timedEvent;
+var vidas = 3;
+var textVidas;
+var dogi;
 var initialTime;
 var timeText;
+var timedEvent;
+var textGameOver;
 
 /* Variables Menu */
 var empezarSc1;
@@ -82,6 +87,11 @@ var volverMenu2;
 var help2;
 var teclas;
 var imgPerro;
+var imgPower;
+
+/* GameOver */
+var textGo;
+var botonIrMenu;
 
 /* Bala */
 /* var fireButton;

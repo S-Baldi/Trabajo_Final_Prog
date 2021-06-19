@@ -27,9 +27,13 @@ class mp1 extends Phaser.Scene{
 
     /* Enemigo */
     this.load.spritesheet('robot', 'assets/enemigo.png', {frameWidth:130, frameHeight:230});
+
+    /* Perro */
+    this.load.spritesheet('dogito', 'assets/Perro/perro.png' , {frameWidth:330, frameHeight:160});
     
     /* Moneda */
     this.load.spritesheet('coin', 'assets/moneda.png', {frameWidth:16, frameHeight:16});
+    this.load.spritesheet('coinRed', 'assets/MonedaR.png', {frameWidth:16, frameHeight:16});
 
     /* Powerups */
     this.load.image('poder1', 'assets/Power/Blue/frame 1.png');
@@ -45,6 +49,7 @@ class mp1 extends Phaser.Scene{
     /* Ayuda */
     this.load.image('teclas', 'assets/teclas.png');
     this.load.image('dogi', 'assets/Perro/dog.png');
+    this.load.image('allPower', 'assets/Power/todosPower.png')
     
     /* Créditos */
     this.load.image('logoph', 'assets/logoPhaser.png');
