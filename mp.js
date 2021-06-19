@@ -24,6 +24,7 @@ class mp1 extends Phaser.Scene{
 
     /* Personaje */
     this.load.spritesheet('dude', 'assets/solda2.png', {frameWidth:300, frameHeight: 345});
+    this.load.spritesheet('dead', 'assets/muerto.png', {frameWidth:100, frameHeight: 1000});
 
     /* Enemigo */
     this.load.spritesheet('robot', 'assets/enemigo.png', {frameWidth:130, frameHeight:230});
@@ -79,7 +80,11 @@ class mp1 extends Phaser.Scene{
       repeat: -1
     });
 
-   
+    this.anims.create({
+      key: 'river',
+      frames: [ { key: 'dead', frame: 0} ],
+      frameRate:20
+    })  
 
     /* Logo */
     fondoMenu = this.add.image(700, 300, 'fondo');
@@ -109,6 +114,10 @@ class mp1 extends Phaser.Scene{
     .on('pointerover', () => this.add.text(300, 550, 'Créditos', { font: 'bold 20pt Arial', fontSize: '36px', fill: '#FF2D00'}))
     .on('pointerout', () => this.add.text(300, 550, 'Créditos', { font: 'bold 20pt Arial', fontSize: '36px', fill: '#ffffff'}))
     .on('pointerdown', () => this.scene.start('creditos')) 
+
+    initialTime = 60;
+    vidas = 3;
+    scoreNivel1 = 0;
 
   }
   

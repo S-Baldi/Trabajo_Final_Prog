@@ -62,6 +62,7 @@ var mapa;
 var scoreNivel1 = 0;
 var scoreText1;
 var gameOver;
+var gameWin;
 
 /* Variables Nivel 2 */
 var backCueva11;

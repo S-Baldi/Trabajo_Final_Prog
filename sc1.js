@@ -83,13 +83,13 @@ class sc1 extends Phaser.Scene{
     /* Animacion moneda */
     moneda = this.physics.add.group({
       key: 'coin',
-      repeat: 20,
+      repeat: 14,
       setXY: {x: 50, y:Phaser.Math.FloatBetween(50, 800), stepX: Phaser.Math.Between(50, 70)},
     })
     moneda.children.iterate(function (child){
       child.setBounce(1);
       child.setScale(1.5);
-      /* child.setVelocity(Phaser.Math.Between(-100, 100), 20); */
+      child.setVelocity(Phaser.Math.Between(-50, 50), 5); 
     }) 
     this.anims.create({
       key: 'giro',
@@ -105,11 +105,12 @@ class sc1 extends Phaser.Scene{
     monedaR = this.physics.add.group({
       key: 'coinRed',
       repeat: 2,
-      setXY: {x: 50, y:Phaser.Math.FloatBetween(50, 800), stepX: Phaser.Math.Between(300, 700)},
+      setXY: {x: 100, y:Phaser.Math.FloatBetween(150, 600), stepX: Phaser.Math.Between(300, 700)},
     })
     monedaR.children.iterate(function(child){
       child.setBounce(1);
       child.setScale(1.5);
+      child.setVelocity(200, 200);
     })
     this.anims.create({
       key: 'giroRed',
@@ -122,16 +123,18 @@ class sc1 extends Phaser.Scene{
     monedaR.playAnimation('giroRed');
 
     /* Perro */
-    dogi = this.physics.add.group({
+    dogi = this.physics.add.group()  /*({
       key: 'dogito',
       repeat: 1,
-      setXY: {x: 400, y:300, stepX: Phaser.Math.Between(300, 700)},
+      setXY: {x: 400, y:300, stepX: Phaser.Math.Between(300, 700)},      
     })
     dogi.children.iterate(function(child){
       child.setBounce(1);
       child.setScale(0.2);
       child.setVelocity(Phaser.Math.Between(-100, 100), 20);
-    })
+      child.disableBody(true);
+      child.setVisible(false);
+    })*/
     this.anims.create({
       key: 'dogCorre',
       frames:this.anims.generateFrameNumbers('dogito',{
@@ -141,7 +144,7 @@ class sc1 extends Phaser.Scene{
       repeat: -1,
       frameRate: 7
     })
-    dogi.playAnimation('dogCorre');
+    
 
     /* Powerups */
     power1 = this.physics.add.sprite (200, 900, 'poder1');
@@ -154,7 +157,7 @@ class sc1 extends Phaser.Scene{
     this.physics.add.collider(powerAzul, solidos);
     powerAzul.setScale(0.1);
 
-    /*  this.anims.create({
+    /* this.anims.create({
       key: 'giroblue',
       frames:this.anims.generateFrameNumbers('poderAzul.', {
         start: 0,
@@ -162,7 +165,7 @@ class sc1 extends Phaser.Scene{
       }),
       repeat: -1
     });    
-    powerAzul.anims.play('giroblue', true); */
+    powerAzul.anims.play('giroblue'); */
 
     /* Power2 */    
     power2 = this.physics.add.sprite (250, 900, 'poder2');
@@ -218,19 +221,25 @@ class sc1 extends Phaser.Scene{
     timeText.scrollFactorX = 0;
     timeText.scrollFactorY = 0;    
 
-    initialTime = 5;
+    initialTime = 60;
     timedEvent = this.time.addEvent(
       {delay: 1000, callback: this.onSecond, callbackScope: this, loop: true});
 
     gameOver = false;
+    gameWin = false;
   }
 
-  update(){
+  update(time, delta){
     if (teclaR.isDown)
     {
       this.scene.restart();
       scoreNivel1 = 0;
       vidas = 3;
+    }
+
+    if (teclaP.isDown)
+    {
+      this.scene.start('menu');
     }
 
     if (cursors.left.isDown)
@@ -267,6 +276,10 @@ class sc1 extends Phaser.Scene{
     if (gameOver){
       return;
     }
+
+    if(scoreNivel1>1000){
+      this.gameWin()
+    }
   }
 
   onSecond() 
@@ -284,16 +297,44 @@ class sc1 extends Phaser.Scene{
     }
   }
 
-  juntarMonedas (player, moneda){
-    moneda.disableBody(true, true);
+  juntarMonedas (player, moned){
+    moned.disableBody(true, true);
     scoreNivel1 += 10;
     scoreText1.setText('Puntaje: ' + scoreNivel1);
+
+    if (moneda.countActive(true) === 0)
+    {
+      //  Nuevas monedas
+      moneda.children.iterate(function (child) {
+        child.enableBody(true, child.x, 200, true, true);
+      });
+    }
   }
-  juntarMonedasRed (player, monedaR){
-    monedaR.disableBody(true, true);
+
+  juntarMonedasRed (player, monedaRr){
+    monedaRr.disableBody(true, true);
     scoreNivel1 += 30;
     scoreText1.setText('Puntaje: ' + scoreNivel1)
+
+    if (monedaR.countActive(true) === 0){
+      /* Nuevas monedas rojas */
+      monedaR.children.iterate(function(child){
+        child.enableBody(true, child.x, 200, true, true);        
+      });
+      
+      /* Respawn perros */
+      var x = (player.x < 600) ? Phaser.Math.Between(600, 1000) : Phaser.Math.Between(0, 600);
+
+      var dogis = dogi.create(x, 300, 'dogito');
+      dogis.setBounce(1);
+      dogis.setScale(0.2);
+      dogis.setVelocity(Phaser.Math.Between(-100, 100), 20);
+      dogis.allowGravity = false;
+      dogi.playAnimation('dogCorre'); 
+      
+    }
   }
+
   juntarPerro (player, dogi){
     dogi.disableBody(true, true);
     scoreNivel1 += 100;
@@ -307,14 +348,21 @@ class sc1 extends Phaser.Scene{
 
   gameOver(){
     gameOver = true;
-    this.physics.pause();
-    player.setTint(0xff0000);
+    this.physics.pause();    
+    player.anims.play('river');
 
-    textGameOver = this.add.text(600, 500, 'HAS PERDIDO', 
-    {font: 'bold 50pt Arial', fontSize: '36px', fill: '#fff', align:'center'});
+    textGameOver = this.add.text(400, 300, 'Has Perdido', 
+    { fontFamily: 'Arial', fontSize: 110, color: '#ff0000'})
+    .setInteractive()
+    .on('pointerdown', () => this.scene.start('gameover'));
     textGameOver.scrollFactorX = 0;
     textGameOver.scrollFactorY = 0;
-    /* textGameOver.setIteractive()
-    textGameOver.on('pointerdown', () => this.scene.start('gameover')); */
+  }
+
+  gameWin(){
+    gameWin = true;
+    this.physics.pause();
+    this.scene.restart('escena1');
+    this.scene.start('gamewin');
   }
 }

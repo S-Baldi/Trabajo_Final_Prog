@@ -11,7 +11,7 @@ class h1 extends Phaser.Scene{
     fondoMenu = this.add.image(700, 300, 'fondo');
 
     teclas = this.add.image(400, 100, 'teclas').setScale(0.4);
-    help2 = this.add.text(600, 150, 'Usa las flechas para mover al personaje', 
+    help2 = this.add.text(550, 120, '         Usa las flechas para mover al personaje\n "R" para reiniciar el nivel y "P" para volver al menú', 
     { font: 'bold 20pt Arial', fill: '#ffffff'});
 
     moneda = this.add.image(450, 260, 'coin').setScale(2);
