@@ -185,7 +185,7 @@ class sc1 extends Phaser.Scene{
     
     /* Colliders */
     this.physics.add.collider(player, solidos);
-    this.physics.add.collider(player, enemy, this.hitPlayer, null, this);
+    player_collider = this.physics.add.collider(player, enemy, this.hitPlayer, null, this);
     this.physics.add.collider(moneda, solidos);
     this.physics.add.collider(monedaR, solidos);
     this.physics.add.collider(enemy, solidos);
@@ -280,6 +280,23 @@ class sc1 extends Phaser.Scene{
     if(scoreNivel1>1000){
       this.gameWin()
     }
+
+    if(!player_collider.active)
+    {
+      tempo+=delta
+      if(tempo>=2000) 
+      {
+        player_collider.active=true
+        tempo=0
+      }
+    }
+  }
+  
+  hitPlayer(player, enemy)
+  {
+    vidas -= 1;
+    textVidas.setText('Vidas: '+ vidas)
+    player_collider.active = false;
   }
 
   onSecond() 
@@ -340,11 +357,7 @@ class sc1 extends Phaser.Scene{
     scoreNivel1 += 100;
     scoreText1.setText('Puntaje: ' + scoreNivel1)
   }
-
-  hitPlayer (player, enemy){
-    vidas -= 1;
-    textVidas.setText('Vidas: ' + vidas)
-  }
+  
 
   gameOver(){
     gameOver = true;

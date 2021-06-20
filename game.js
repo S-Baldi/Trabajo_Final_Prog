@@ -33,6 +33,8 @@ var power3;
 var power4;
 var vidas = 3;
 var textVidas;
+var player_collider;
+var tempo = 0;
 var dogi;
 var initialTime;
 var timeText;
