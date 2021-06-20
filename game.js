@@ -26,11 +26,7 @@ var enemy6;
 var cursors;
 var moneda;
 var monedaR;
-var power1;
-var powerAzul;
-var power2;
-var power3;
-var power4;
+
 var vidas = 3;
 var textVidas;
 var player_collider;
@@ -40,6 +36,7 @@ var initialTime;
 var timeText;
 var timedEvent;
 var textGameOver;
+var velocidadJugador = 200;
 
 /* Variables Menu */
 var empezarSc1;
@@ -95,6 +92,19 @@ var imgPower;
 /* GameOver */
 var textGo;
 var botonIrMenu;
+
+/* Música y Sonidos */
+var musicaNivel1;
+var musicaNivel2;
+var musicaMenu;
+var sonidoCoin;
+
+/* Powerups */
+var spawnTime;
+var spawn;
+var powerRed;
+var powerAzul;
+var powerYellow;
 
 /* Bala */
 /* var fireButton;

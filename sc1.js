@@ -146,18 +146,9 @@ class sc1 extends Phaser.Scene{
     })
     
 
-    /* Powerups */
-    power1 = this.physics.add.sprite (200, 900, 'poder1');
-    power1.setScale(0.1);
-    this.physics.add.collider(power1, solidos);
-    power1.setBounce(1);
-
     /* PowerupAzul */
-    powerAzul = this.physics.add.sprite (400, 900, 'poderAzul');
-    this.physics.add.collider(powerAzul, solidos);
-    powerAzul.setScale(0.1);
 
-    /* this.anims.create({
+/*     this.anims.create({
       key: 'giroblue',
       frames:this.anims.generateFrameNumbers('poderAzul.', {
         start: 0,
@@ -167,22 +158,6 @@ class sc1 extends Phaser.Scene{
     });    
     powerAzul.anims.play('giroblue'); */
 
-    /* Power2 */    
-    power2 = this.physics.add.sprite (250, 900, 'poder2');
-    power2.setScale(0.1);
-    this.physics.add.collider(power2, solidos);
-    power2.setBounce(1);
-
-    power3 = this.physics.add.sprite (300, 900, 'poder3');
-    power3.setScale(0.1);    
-    this.physics.add.collider(power3, solidos);
-    power3.setBounce(1);
-
-    power4 = this.physics.add.sprite (350, 900, 'poder4');
-    power4.setScale(0.1);
-    this.physics.add.collider(power4, solidos);
-    power4.setBounce(1);
-    
     /* Colliders */
     this.physics.add.collider(player, solidos);
     player_collider = this.physics.add.collider(player, enemy, this.hitPlayer, null, this);
@@ -197,6 +172,8 @@ class sc1 extends Phaser.Scene{
     this.physics.add.overlap(player, monedaR, this.juntarMonedasRed, null, this);
     this.physics.add.overlap(player, dogi, this.juntarPerro, null, this);
 
+    /* Powerups */
+
     /* BALA */
     /*  weapon = game.add.weapon(10, 'bala');
     weapon.bulletKillType = Phaser.Weapon.KILL_WORLD_BOUNDS;
@@ -206,52 +183,65 @@ class sc1 extends Phaser.Scene{
 
     fireButton = this.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR); */
 
-    scoreText1 = this.add.text(550, 0, 'Puntaje: 0', 
+    scoreNivel1 = 0;
+    scoreText1 = this.add.text(550, 0, 'Puntaje: ' +scoreNivel1, 
     { font: 'bold 30pt Arial', fontSize: '36px', fill: '#fff', align:'center'});    
     scoreText1.scrollFactorX = 0;
     scoreText1.scrollFactorY = 0;
     
-    textVidas = this.add.text(200, 0, 'Vidas: 3',
+    vidas = 3;
+    textVidas = this.add.text(200, 0, 'Vidas: ' + vidas,
     { font: 'bold 30pt Arial', fontSize: '36px', fill: '#fff', align:'center'});
     textVidas.scrollFactorX = 0;
     textVidas.scrollFactorY = 0;
 
-    timeText = this.add.text(950, 0, 'Tiempo: 90', 
+    
+    initialTime = 40;
+    timeText = this.add.text(950, 0, 'Tiempo: ' + initialTime, 
     {font: 'bold 30pt Arial', fontSize: '36px', fill: '#fff', align:'center'});
     timeText.scrollFactorX = 0;
     timeText.scrollFactorY = 0;    
 
-    initialTime = 60;
+    
+    velocidadJugador = 200;
     timedEvent = this.time.addEvent(
       {delay: 1000, callback: this.onSecond, callbackScope: this, loop: true});
 
     gameOver = false;
     gameWin = false;
+    
+    sonidoCoin = this.sound.add('coinDorada');
+
+    musicaNivel1 = this.sound.add('musicaLevel1');
+    musicaNivel1.play({volume: 0.2, loop: true});
+
+    spawn = Phaser.Math.FloatBetween(1, 3);
+    spawnTime = 0;    
   }
 
   update(time, delta){
     if (teclaR.isDown)
     {
-      this.scene.restart();
-      scoreNivel1 = 0;
-      vidas = 3;
+      this.scene.restart();      
+      musicaNivel1.stop();
     }
 
     if (teclaP.isDown)
     {
-      this.scene.start('menu');
+      this.scene.start('menu');      
+      musicaNivel1.stop();
     }
 
     if (cursors.left.isDown)
     {
-      player.setVelocityX(-200);
+      player.setVelocityX(-velocidadJugador);
       player.anims.play('left', true);
       /* weapon.fireAngle = Phaser.ANGLE_LEFT; */
     }
 
     else if (cursors.right.isDown)
     {
-      player.setVelocityX(200);
+      player.setVelocityX(velocidadJugador);
       player.anims.play('right', true);
       /* weapon.fireAngle = Phaser.ANGLE_RIGHT; */
     }
@@ -290,8 +280,83 @@ class sc1 extends Phaser.Scene{
         tempo=0
       }
     }
+
+    if (initialTime <= 0){
+      this.gameOver();
+    }
+
+    if (vidas <= 0){
+      this.gameOver();       
+    }
+
+    if (spawn=1 )
+    {
+      spawnTime += delta;
+      if(spawnTime >= 15000)
+      {
+        spawnTime = 0
+        this.spawnPowerUpAzul()
+      }
+    }
+
+    if (spawn=1)
+    {       
+      spawnTime += delta;
+      if(spawnTime >= 15000)
+      {
+        spawnTime = 0
+        this.spawnPowerUpRed()
+      }
+    }
+
+    if (spawn=1)
+    {
+      spawnTime += delta;
+      if(spawnTime >= 15000)
+      {
+        spawnTime = 0
+        this.spawnPowerUpYellow()
+      }
+    }
   }
-  
+  /* POWERUPS */
+                    /* PODER AZUL */
+  spawnPowerUpAzul(){    
+    powerAzul = this.physics.add.sprite (Phaser.Math.Between(100, 1000), Phaser.Math.Between(100, 500), 'poderAzul');
+    this.physics.add.collider(powerAzul, solidos);
+    this.physics.add.overlap(player, powerAzul, this.PowerUpAzul, null, this);
+    powerAzul.setScale(0.12);
+  }  
+  PowerUpAzul(player, powerAzul){    
+    powerAzul.disableBody(true, true);
+    player.setVelocityX(velocidadJugador = velocidadJugador + 300);
+  }
+                    /* PODER ROJO */
+  spawnPowerUpRed(){    
+    powerRed = this.physics.add.sprite (Phaser.Math.Between(100, 1000), Phaser.Math.Between(100, 500), 'poderRed');
+    this.physics.add.overlap(player, powerRed, this.PowerUpRed, null, this);
+    this.physics.add.collider(powerRed, solidos);    
+    powerRed.setScale(0.12);
+  }
+  PowerUpRed(player, powerRed){
+    powerRed.disableBody(true, true);
+    vidas += 1;
+    textVidas.setText('Vidas: '+ vidas)
+  }
+                   /* PODER AMARILLO */
+  spawnPowerUpYellow(){    
+    powerYellow = this.physics.add.sprite (Phaser.Math.Between(100, 1000), Phaser.Math.Between(100, 500), 'poderYellow');
+    this.physics.add.collider(powerYellow, solidos);    
+    this.physics.add.overlap(player, powerYellow, this.PowerUpYellow, null, this);
+    powerYellow.setScale(0.12);
+  }
+  PowerUpYellow(player, powerYellow){
+    powerYellow.disableBody(true, true);
+    initialTime = initialTime +10;
+    timeText.setText('Tiempo: ' + initialTime)
+  }
+  /* POWERUPS */
+
   hitPlayer(player, enemy)
   {
     vidas -= 1;
@@ -319,6 +384,9 @@ class sc1 extends Phaser.Scene{
     scoreNivel1 += 10;
     scoreText1.setText('Puntaje: ' + scoreNivel1);
 
+    /* Sonido */
+    sonidoCoin.play({volume:0.4});
+
     if (moneda.countActive(true) === 0)
     {
       //  Nuevas monedas
@@ -331,7 +399,10 @@ class sc1 extends Phaser.Scene{
   juntarMonedasRed (player, monedaRr){
     monedaRr.disableBody(true, true);
     scoreNivel1 += 30;
-    scoreText1.setText('Puntaje: ' + scoreNivel1)
+    scoreText1.setText('Puntaje: ' + scoreNivel1);
+
+    /* Sonido */    
+    sonidoCoin.play({volume:0.4});
 
     if (monedaR.countActive(true) === 0){
       /* Nuevas monedas rojas */
@@ -356,13 +427,16 @@ class sc1 extends Phaser.Scene{
     dogi.disableBody(true, true);
     scoreNivel1 += 100;
     scoreText1.setText('Puntaje: ' + scoreNivel1)
-  }
-  
+
+    /* Sonido */    
+    sonidoCoin.play({volume:0.4});
+  }  
 
   gameOver(){
     gameOver = true;
-    this.physics.pause();    
-    player.anims.play('river');
+    this.physics.pause();  
+    
+    musicaNivel1.stop();
 
     textGameOver = this.add.text(400, 300, 'Has Perdido', 
     { fontFamily: 'Arial', fontSize: 110, color: '#ff0000'})

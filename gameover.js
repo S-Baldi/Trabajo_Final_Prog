@@ -4,6 +4,11 @@ class go1 extends Phaser.Scene{
   }
 
   preload(){
+    if (cursors =! undefined){
+      cursors = this.input.keyboard.createCursorKeys();
+      teclaR = this.input.keyboard.addKey('R');
+      teclaP = this.input.keyboard.addKey('P');
+    }
 
   }
 
@@ -24,6 +29,12 @@ class go1 extends Phaser.Scene{
     .on('pointerout', () => this.add.text(50, 500, 'Menu', { font: 'bold 20pt Arial', fontSize: '36px', fill: '#ffffff'}))
     .on('pointerdown', () => this.scene.start('menu'))
 
+  }
+
+  update(){
+    if (teclaR.isDown){
+      this.scene.start('escena1')
+    }
   }
 
 }

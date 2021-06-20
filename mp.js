@@ -24,7 +24,7 @@ class mp1 extends Phaser.Scene{
 
     /* Personaje */
     this.load.spritesheet('dude', 'assets/solda2.png', {frameWidth:300, frameHeight: 345});
-    this.load.spritesheet('dead', 'assets/muerto.png', {frameWidth:100, frameHeight: 1000});
+    /* this.load.spritesheet('dead', 'assets/muerto.png', {frameWidth:100, frameHeight: 1000}); */
 
     /* Enemigo */
     this.load.spritesheet('robot', 'assets/enemigo.png', {frameWidth:130, frameHeight:230});
@@ -37,11 +37,9 @@ class mp1 extends Phaser.Scene{
     this.load.spritesheet('coinRed', 'assets/MonedaR.png', {frameWidth:16, frameHeight:16});
 
     /* Powerups */
-    this.load.image('poder1', 'assets/Power/Blue/frame 1.png');
+    this.load.spritesheet('poderYellow', 'assets/Power/Yellow/powerY.png', {frameWidth:320, frameHeight:400});
     this.load.spritesheet('poderAzul', 'assets/Power/Blue/powerB.png', {frameWidth:320, frameHeight:400});
-    this.load.image('poder2', 'assets/Power/Green/frame 1.png');
-    this.load.image('poder3', 'assets/Power/Yellow/frame 1.png');
-    this.load.image('poder4', 'assets/Power/Red/frame 1.png');
+    this.load.spritesheet('poderRed', 'assets/Power/Red/powerR.png', {frameWidth:320, frameHeight:400});
 
     /* Menú */
     this.load.image('logo', 'assets/logo.png');
@@ -50,11 +48,17 @@ class mp1 extends Phaser.Scene{
     /* Ayuda */
     this.load.image('teclas', 'assets/teclas.png');
     this.load.image('dogi', 'assets/Perro/dog.png');
-    this.load.image('allPower', 'assets/Power/todosPower.png')
+    this.load.image('allPower', 'assets/Power/todosPower.png');
     
     /* Créditos */
     this.load.image('logoph', 'assets/logoPhaser.png');
     this.load.image('logou', 'assets/logoU.png');
+
+    /* Sonidos */
+    this.load.audio('coinDorada', 'audio/coin.wav');
+    this.load.audio('musicaMenu', 'audio/menu.wav');
+    this.load.audio('musicaLevel1', 'audio/level1.wav');
+    this.load.audio('musicaLevel2', 'audio/level2.ogg');
 
   }
   create()
@@ -82,7 +86,7 @@ class mp1 extends Phaser.Scene{
 
     this.anims.create({
       key: 'river',
-      frames: [ { key: 'dead', frame: 0} ],
+      frames: [ { key: 'dude', frame: 14} ],
       frameRate:20
     })  
 
@@ -95,7 +99,7 @@ class mp1 extends Phaser.Scene{
     .setInteractive()
     .on('pointerover', () => this.add.text(500, 550, 'Empezar', { font: 'bold 20pt Arial', fontSize: '36px', fill: '#FF2D00'}))
     .on('pointerout', () => this.add.text(500, 550, 'Empezar', { font: 'bold 20pt Arial', fontSize: '36px', fill: '#ffffff'}))
-    .on('pointerdown', () => this.scene.start('escena1'))
+    .on('pointerdown', () => this.scene.start('escena1') && musicaMenu.stop()) 
 
     empezarSc2 = this.add.text(800, 550, 'Empezar2', { font: 'bold 20pt Arial', fill: '#ffffff'})
     .setInteractive()
@@ -107,17 +111,16 @@ class mp1 extends Phaser.Scene{
     .setInteractive()
     .on('pointerover', () => this.add.text(1000, 550, 'Ayuda', { font: 'bold 20pt Arial', fontSize: '36px', fill: '#FF2D00'}))
     .on('pointerout', () => this.add.text(1000, 550, 'Ayuda', { font: 'bold 20pt Arial', fontSize: '36px', fill: '#ffffff'}))
-    .on('pointerdown', () => this.scene.start('ayuda'))
+    .on('pointerdown', () => this.scene.start('ayuda') && musicaMenu.stop())
 
     botonCreditos = this.add.text(300, 550, 'Créditos', { font: 'bold 20pt Arial', fill: '#ffffff'})
     .setInteractive()
     .on('pointerover', () => this.add.text(300, 550, 'Créditos', { font: 'bold 20pt Arial', fontSize: '36px', fill: '#FF2D00'}))
     .on('pointerout', () => this.add.text(300, 550, 'Créditos', { font: 'bold 20pt Arial', fontSize: '36px', fill: '#ffffff'}))
-    .on('pointerdown', () => this.scene.start('creditos')) 
+    .on('pointerdown', () => this.scene.start('creditos') && musicaMenu.stop()) 
 
-    initialTime = 60;
-    vidas = 3;
-    scoreNivel1 = 0;
+    musicaMenu = this.sound.add('musicaMenu');
+    musicaMenu.play({volume:0.2, loop:true});
 
   }
   
