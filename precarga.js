@@ -21,7 +21,7 @@ class prec extends Phaser.Scene{
     this.load.image('fondoCueva4', 'assets/Mapa2/background cave 4.png');
     this.load.image('plataformaCueva', 'assets/Mapa2/cave_grass_joint_tileset.png');
     this.load.image('puasCueva', 'assets/Mapa2/Puas.png')
-    
+
         /* Menú */
     this.load.image('logo', 'assets/logo.png');
     this.load.image('fondo', 'assets/fondo.png');
@@ -36,7 +36,7 @@ class prec extends Phaser.Scene{
   update(time, delta)
   {
     tempo += delta
-    if (tempo >= 2000){
+    if (tempo >= 5000){
       tempo = 0
       this.scene.start('menu'); 
     }
