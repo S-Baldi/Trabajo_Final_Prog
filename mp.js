@@ -4,40 +4,7 @@ class mp1 extends Phaser.Scene{
   }
 
   preload (){
-    /* Personaje */
-    this.load.spritesheet('dude', 'assets/solda2.png', {frameWidth:300, frameHeight: 345});
-    /* this.load.spritesheet('dead', 'assets/muerto.png', {frameWidth:100, frameHeight: 1000}); */
-
-    /* Enemigo */
-    this.load.spritesheet('robot', 'assets/enemigo.png', {frameWidth:130, frameHeight:230});
-
-    /* Perro */
-    this.load.spritesheet('dogito', 'assets/Perro/perro.png' , {frameWidth:330, frameHeight:160});
     
-    /* Moneda */
-    this.load.spritesheet('coin', 'assets/moneda.png', {frameWidth:16, frameHeight:16});
-    this.load.spritesheet('coinRed', 'assets/MonedaR.png', {frameWidth:16, frameHeight:16});
-
-    /* Powerups */
-    this.load.spritesheet('poderYellow', 'assets/Power/Yellow/powerY.png', {frameWidth:320, frameHeight:400});
-    this.load.spritesheet('poderAzul', 'assets/Power/Blue/powerB.png', {frameWidth:320, frameHeight:400});
-    this.load.spritesheet('poderRed', 'assets/Power/Red/powerR.png', {frameWidth:320, frameHeight:400});
-
-    /* Ayuda */
-    this.load.image('teclas', 'assets/teclas.png');
-    this.load.image('dogi', 'assets/Perro/dog.png');
-    this.load.image('allPower', 'assets/Power/todosPower.png');
-    
-    /* Créditos */
-    this.load.image('logoph', 'assets/logoPhaser.png');
-    this.load.image('logou', 'assets/logoU.png');
-
-    /* Sonidos */
-    this.load.audio('coinDorada', 'audio/coin.wav');
-    this.load.audio('musicaMenu', 'audio/menu.wav');
-    this.load.audio('musicaLevel1', 'audio/level1.wav');
-    this.load.audio('musicaLevel2', 'audio/level2.ogg');
-    this.load.audio('pauer', 'audio/powerup.wav')
 
   }
   create()
