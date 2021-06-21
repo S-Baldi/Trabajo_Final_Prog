@@ -20,12 +20,15 @@ class sc2 extends Phaser.Scene{
     var backCueva4 = mapa2.addTilesetImage('back4', 'fondoCueva1');
     var puas1 = mapa2.addTilesetImage('Puas', 'puasCueva');
     var solidosCueva = mapa2.addTilesetImage('plataformas', 'plataformaCueva');
+    var solidosInvisibles2 = mapa2.addTilesetImage('plataformas', 'plataformaCueva')
 
     /* Capas */
+    solidosInvisibles = mapa2.createLayer('invisibles', solidosInvisibles2, 0, 0);
+    solidosInvisibles.setCollisionByProperty({invisibles2:true});
     backCueva11 = mapa2.createLayer('back1', backCueva1, 0, 0);
     backCueva22 = mapa2.createLayer('back2', backCueva2, 0, 0);
     backCueva33 = mapa2.createLayer('back3', backCueva3, 0, 0);
-    backCueva44 = mapa2.createLayer('back4', backCueva4, 0, 0);
+    backCueva44 = mapa2.createLayer('back4', backCueva4, 0, 0);    
     puas11 = mapa2.createLayer('puas', puas1, 0, 0);
     puas11 = mapa2.createLayer('puas2', puas1, 0, 0);
     puas11.setCollisionByProperty({solidopua: true});
@@ -56,7 +59,7 @@ class sc2 extends Phaser.Scene{
     let timeline = this.tweens.timeline({
       targets: enemy,
       ease: 'Circ',
-      duration: 2000,
+      duration: 4000,
       loop: -1,
       yoyo:-1,
       tweens:[
@@ -127,6 +130,7 @@ class sc2 extends Phaser.Scene{
     this.physics.add.collider(enemy, solidosCueva1);
     this.physics.add.collider(enemy, solidosCueva1);
     this.physics.add.collider(dogi, solidosCueva1);
+    this.physics.add.collider(enemy, solidosInvisibles);
     
     /* Overlaps */
     this.physics.add.overlap(player, moneda, this.juntarMonedas);
@@ -167,6 +171,8 @@ class sc2 extends Phaser.Scene{
     
     musicaNivel2 = this.sound.add('musicaLevel2');
     musicaNivel2.play({volume: 0.2, loop: true});
+
+    sonidoPower = this.sound.add('pauer');
   }
 
   update(time, delta){
@@ -174,6 +180,11 @@ class sc2 extends Phaser.Scene{
     {
       this.scene.restart();
     }
+    if (teclaP.isDown)
+    {
+      this.physics.pause();
+    }
+
     if (cursors.left.isDown)
     {
       player.setVelocityX(-velocidadJugador);
@@ -253,6 +264,10 @@ class sc2 extends Phaser.Scene{
         spawnTime = 0
         this.spawnPowerUpYellow()
       }
+    }
+
+    if (enemy.x > 0){
+      enemy.setVelocityX(-200)
     }
   }
     /* POWERUPS */

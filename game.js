@@ -67,6 +67,7 @@ var backCueva22;
 var backCueva33;
 var backCueva44;
 var solidosCueva1;
+var solidosInvisibles;
 var mapa2;
 var puas11;
 var puas22;
@@ -105,6 +106,7 @@ var spawn;
 var powerRed;
 var powerAzul;
 var powerYellow;
+var sonidoPower;
 
 /* Precarga */
 var textPrecarga; 

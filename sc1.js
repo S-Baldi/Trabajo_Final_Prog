@@ -54,14 +54,14 @@ class sc1 extends Phaser.Scene{
       setXY:{x:180, y:300, stepX:330}
     })
     enemy.children.iterate(function (child){
-      child.setBounce(0.2);
+      child.setBounce(0.7);
       child.setScale(0.25);
       child.setSize(140 , 230);      
     })    
     let timeline = this.tweens.timeline({
       targets: enemy,
-      ease: 'Circ',
-      duration: 2000,
+      ease: 'Power1',
+      duration: 3000,
       loop: -1,
       yoyo:-1,
       tweens:[
@@ -99,7 +99,7 @@ class sc1 extends Phaser.Scene{
       }),
       repeat: -1
     });
-    moneda.playAnimation('giro');  
+    moneda.playAnimation('giro');
 
     /* Moneda Roja */
     monedaR = this.physics.add.group({
@@ -171,18 +171,8 @@ class sc1 extends Phaser.Scene{
     this.physics.add.overlap(player, moneda, this.juntarMonedas);
     this.physics.add.overlap(player, monedaR, this.juntarMonedasRed, null, this);
     this.physics.add.overlap(player, dogi, this.juntarPerro, null, this);
-
-    /* Powerups */
-
-    /* BALA */
-    /*  weapon = game.add.weapon(10, 'bala');
-    weapon.bulletKillType = Phaser.Weapon.KILL_WORLD_BOUNDS;
-    weapon.bulletSpeed = 600;
-    weapon.fireRate = 50;
-    weapon.trackSprite(player, 0, 0, false);
-
-    fireButton = this.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR); */
-
+    
+    /* Variables */
     scoreNivel1 = 0;
     scoreText1 = this.add.text(550, 0, 'Puntaje: ' +scoreNivel1, 
     { font: 'bold 30pt Arial', fontSize: '36px', fill: '#fff', align:'center'});    
@@ -194,7 +184,6 @@ class sc1 extends Phaser.Scene{
     { font: 'bold 30pt Arial', fontSize: '36px', fill: '#fff', align:'center'});
     textVidas.scrollFactorX = 0;
     textVidas.scrollFactorY = 0;
-
     
     initialTime = 40;
     timeText = this.add.text(950, 0, 'Tiempo: ' + initialTime, 
@@ -214,8 +203,10 @@ class sc1 extends Phaser.Scene{
     musicaNivel1 = this.sound.add('musicaLevel1');
     musicaNivel1.play({volume: 0.2, loop: true});
 
+    sonidoPower = this.sound.add('pauer');
+
     spawn = Phaser.Math.FloatBetween(1, 3);
-    spawnTime = 0;    
+    spawnTime = 0;
   }
 
   update(time, delta){
@@ -255,8 +246,9 @@ class sc1 extends Phaser.Scene{
     }
 
     if (enemy.x > 0){
-      enemy.setVelocityX(+100)
+      enemy.setVelocityX(-200)
     }
+    
 
     if (gameOver){
       return;
@@ -287,7 +279,7 @@ class sc1 extends Phaser.Scene{
     if (spawn=1 )
     {
       spawnTime += delta;
-      if(spawnTime >= 15000)
+      if(spawnTime >= 30000)
       {
         spawnTime = 0
         this.spawnPowerUpAzul()
@@ -297,7 +289,7 @@ class sc1 extends Phaser.Scene{
     if (spawn=2)
     {       
       spawnTime += delta;
-      if(spawnTime >= 15000)
+      if(spawnTime >= 30000)
       {
         spawnTime = 0
         this.spawnPowerUpRed()
@@ -307,7 +299,7 @@ class sc1 extends Phaser.Scene{
     if (spawn=3)
     {
       spawnTime += delta;
-      if(spawnTime >= 15000)
+      if(spawnTime >= 30000)
       {
         spawnTime = 0
         this.spawnPowerUpYellow()
@@ -325,6 +317,7 @@ class sc1 extends Phaser.Scene{
   PowerUpAzul(player, powerAzul){    
     powerAzul.disableBody(true, true);
     player.setVelocityX(velocidadJugador = velocidadJugador + 100);
+    sonidoPower.play();
   }
                     /* PODER ROJO */
   spawnPowerUpRed(){    
@@ -337,6 +330,7 @@ class sc1 extends Phaser.Scene{
     powerRed.disableBody(true, true);
     vidas += 1;
     textVidas.setText('Vidas: '+ vidas)
+    sonidoPower.play();
   }
                    /* PODER AMARILLO */
   spawnPowerUpYellow(){    
@@ -346,9 +340,10 @@ class sc1 extends Phaser.Scene{
     powerYellow.setScale(0.12);
   }
   PowerUpYellow(player, powerYellow){
-    powerYellow.disableBody(true, true);
+    powerYellow.disableBody(true, true);    
     initialTime = initialTime +10;
     timeText.setText('Tiempo: ' + initialTime)
+    sonidoPower.play();
   }
 
   /* HITS */
