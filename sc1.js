@@ -200,8 +200,7 @@ class sc1 extends Phaser.Scene{
     timeText = this.add.text(950, 0, 'Tiempo: ' + initialTime, 
     {font: 'bold 30pt Arial', fontSize: '36px', fill: '#fff', align:'center'});
     timeText.scrollFactorX = 0;
-    timeText.scrollFactorY = 0;    
-
+    timeText.scrollFactorY = 0;
     
     velocidadJugador = 200;
     timedEvent = this.time.addEvent(
@@ -238,21 +237,17 @@ class sc1 extends Phaser.Scene{
       player.anims.play('left', true);
       /* weapon.fireAngle = Phaser.ANGLE_LEFT; */
     }
-
     else if (cursors.right.isDown)
     {
       player.setVelocityX(velocidadJugador);
       player.anims.play('right', true);
       /* weapon.fireAngle = Phaser.ANGLE_RIGHT; */
     }
-
     else
     {
       player.setVelocityX(0);
       player.anims.play('turn');
     }
-    
-
     if (cursors.up.isDown && player.body.blocked.down)
     {     
       player.setVelocityY(-330);
@@ -267,7 +262,7 @@ class sc1 extends Phaser.Scene{
       return;
     }
 
-    if(scoreNivel1>1000){
+    if(scoreNivel1>100){
       this.gameWin()
     }
 
@@ -299,7 +294,7 @@ class sc1 extends Phaser.Scene{
       }
     }
 
-    if (spawn=1)
+    if (spawn=2)
     {       
       spawnTime += delta;
       if(spawnTime >= 15000)
@@ -309,7 +304,7 @@ class sc1 extends Phaser.Scene{
       }
     }
 
-    if (spawn=1)
+    if (spawn=3)
     {
       spawnTime += delta;
       if(spawnTime >= 15000)
@@ -329,7 +324,7 @@ class sc1 extends Phaser.Scene{
   }  
   PowerUpAzul(player, powerAzul){    
     powerAzul.disableBody(true, true);
-    player.setVelocityX(velocidadJugador = velocidadJugador + 300);
+    player.setVelocityX(velocidadJugador = velocidadJugador + 100);
   }
                     /* PODER ROJO */
   spawnPowerUpRed(){    
@@ -355,15 +350,15 @@ class sc1 extends Phaser.Scene{
     initialTime = initialTime +10;
     timeText.setText('Tiempo: ' + initialTime)
   }
-  /* POWERUPS */
 
+  /* HITS */
   hitPlayer(player, enemy)
   {
     vidas -= 1;
     textVidas.setText('Vidas: '+ vidas)
     player_collider.active = false;
   }
-
+  /* TEMPORIZADOR */
   onSecond() 
   {
     if (! gameOver)
@@ -379,6 +374,7 @@ class sc1 extends Phaser.Scene{
     }
   }
 
+  /* MONEDAS */
   juntarMonedas (player, moned){
     moned.disableBody(true, true);
     scoreNivel1 += 10;
@@ -448,8 +444,8 @@ class sc1 extends Phaser.Scene{
 
   gameWin(){
     gameWin = true;
+    musicaNivel1.stop();
     this.physics.pause();
-    this.scene.restart('escena1');
     this.scene.start('gamewin');
   }
 }

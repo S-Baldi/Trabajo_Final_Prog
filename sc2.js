@@ -40,172 +40,359 @@ class sc2 extends Phaser.Scene{
     /* Cambiar tamaño de hitbox */
     player.setSize(200, 300);
     this.cameras.main.setBounds(0, 0, mapa2.widthInPixels, mapa2.heightInPixels);
-    this.cameras.main.startFollow(player);    
-    
+    this.cameras.main.startFollow(player);
+
+    /* Enemigo */
+    enemy = this.physics.add.group({
+      key: 'robot',
+      repeat: 4,
+      setXY:{x:180, y:300, stepX:330}
+    })
+    enemy.children.iterate(function (child){
+      child.setBounce(0.2);
+      child.setScale(0.25);
+      child.setSize(140 , 230);      
+    })    
+    let timeline = this.tweens.timeline({
+      targets: enemy,
+      ease: 'Circ',
+      duration: 2000,
+      loop: -1,
+      yoyo:-1,
+      tweens:[
+        {x:400}
+      ]
+    })
+    /* Moneda */    
+    /* Animacion moneda */
+    moneda = this.physics.add.group({
+      key: 'coin',
+      repeat: 14,
+      setXY: {x: 50, y:Phaser.Math.FloatBetween(50, 800), stepX: Phaser.Math.Between(50, 70)},
+    })
+    moneda.children.iterate(function (child){
+      child.setBounce(1);
+      child.setScale(1.5);
+      child.setVelocity(Phaser.Math.Between(-50, 50), 5); 
+    }) 
+    this.anims.create({
+      key: 'giro',
+      frames:this.anims.generateFrameNumbers('coin', {
+        start: 0,
+        end: 4
+      }),
+      repeat: -1
+    });
+    moneda.playAnimation('giro');  
+
+    /* Moneda Roja */
+    monedaR = this.physics.add.group({
+      key: 'coinRed',
+      repeat: 2,
+      setXY: {x: 100, y:Phaser.Math.FloatBetween(150, 600), stepX: Phaser.Math.Between(300, 700)},
+    })
+    monedaR.children.iterate(function(child){
+      child.setBounce(1);
+      child.setScale(1.5);
+      child.setVelocity(200, 200);
+    })
+    this.anims.create({
+      key: 'giroRed',
+      frames:this.anims.generateFrameNumbers('coinRed',{
+        start: 0,
+        end: 4
+      }),
+      repeat: -1
+    })
+    monedaR.playAnimation('giroRed');
+
+    /* Perro */
+    dogi = this.physics.add.group()
+    this.anims.create({
+      key: 'dogCorre',
+      frames:this.anims.generateFrameNumbers('dogito',{
+        start: 0,
+        end: 5
+      }),
+      repeat: -1,
+      frameRate: 7
+    })
+
+    /* Collider */  
     this.physics.add.collider(player, solidosCueva1);
-    this.physics.add.collider(player, puas11);
+    player_collider2 = this.physics.add.collider(player, puas11, this.hitPlayer2, null, this);
+    player_collider = this.physics.add.collider(player, enemy, this.hitPlayer, null, this);
+    this.physics.add.collider(moneda, solidosCueva1);
+    this.physics.add.collider(monedaR, solidosCueva1);
+    this.physics.add.collider(enemy, solidosCueva1);
+    this.physics.add.collider(enemy, solidosCueva1);
+    this.physics.add.collider(dogi, solidosCueva1);
+    
+    /* Overlaps */
+    this.physics.add.overlap(player, moneda, this.juntarMonedas);
+    this.physics.add.overlap(player, monedaR, this.juntarMonedasRed, null, this);
+    this.physics.add.overlap(player, dogi, this.juntarPerro, null, this);
 
     
-//Enemigo//
-enemy = this.physics.add.sprite(180, 300, 'robot');
-enemy2 = this.physics.add.sprite(825, 300, 'robot');
-enemy3 = this.physics.add.sprite(415, 400, 'robot');
-enemy4 = this.physics.add.sprite(1460, 650, 'robot');
-enemy5 = this.physics.add.sprite(690, 650, 'robot');
-enemy6 = this.physics.add.sprite(125, 750, 'robot');
+    /* Variables */
+    scoreNivel2 = 0;
+    scoreText1 = this.add.text(550, 0, 'Puntaje: ' +scoreNivel2, 
+    { font: 'bold 30pt Arial', fontSize: '36px', fill: '#fff', align:'center'});    
+    scoreText1.scrollFactorX = 0;
+    scoreText1.scrollFactorY = 0;
+    
+    vidas = 3;
+    textVidas = this.add.text(200, 0, 'Vidas: ' + vidas,
+    { font: 'bold 30pt Arial', fontSize: '36px', fill: '#fff', align:'center'});
+    textVidas.scrollFactorX = 0;
+    textVidas.scrollFactorY = 0;
+    
+    initialTime = 40;
+    timeText = this.add.text(950, 0, 'Tiempo: ' + initialTime, 
+    {font: 'bold 30pt Arial', fontSize: '36px', fill: '#fff', align:'center'});
+    timeText.scrollFactorX = 0;
+    timeText.scrollFactorY = 0;   
+    timedEvent = this.time.addEvent(
+      {delay: 1000, callback: this.onSecond, callbackScope: this, loop: true});
+    
+    velocidadJugador = 200;
 
-//Colisión del enemigo con el mundo
-this.physics.add.collider(enemy, solidosCueva1);
-this.physics.add.collider(enemy, player);
-this.physics.add.collider(enemy2, solidosCueva1);
-this.physics.add.collider(enemy2, player);
-this.physics.add.collider(enemy3, solidosCueva1);
-this.physics.add.collider(enemy3, player);
-this.physics.add.collider(enemy4, solidosCueva1);
-this.physics.add.collider(enemy4, player);
-this.physics.add.collider(enemy5, solidosCueva1);
-this.physics.add.collider(enemy5, player)
-this.physics.add.collider(enemy6, solidosCueva1);
-this.physics.add.collider(enemy6, player);
+    gameOver2 = false;
+    gameWin2 = false;
+    
+    sonidoCoin = this.sound.add('coinDorada');
 
-//Configuración de escala del enemigo
-enemy.setBounce(0.2);
-enemy.setScale(0.25);
-enemy.setSize(140 , 230);
-enemy.enableBody = true;
-
-enemy2.setBounce(0.2);
-enemy2.setScale(0.25);
-enemy2.setSize(140 , 230);
-enemy2.enableBody = true;
-
-enemy3.setBounce(0.2);
-enemy3.setScale(0.25);
-enemy3.setSize(140 , 230);
-enemy3.enableBody = true;
-
-enemy4.setBounce(0.2);
-enemy4.setScale(0.25);
-enemy4.setSize(140 , 230);
-enemy4.enableBody = true;
-
-enemy5.setBounce(0.2);
-enemy5.setScale(0.25);
-enemy5.setSize(140 , 230);
-enemy5.enableBody = true;
-
-enemy6.setBounce(0.2);
-enemy6.setScale(0.25);
-enemy6.setSize(140 , 230);
-enemy6.enableBody = true;
-
-
+    spawn = Phaser.Math.FloatBetween(1, 3);
+    spawnTime = 0; 
+    
+    musicaNivel2 = this.sound.add('musicaLevel2');
+    musicaNivel2.play({volume: 0.2, loop: true});
   }
 
-  update(){
+  update(time, delta){
     if (teclaR.isDown)
     {
       this.scene.restart();
     }
-
     if (cursors.left.isDown)
     {
-      player.setVelocityX(-200);
+      player.setVelocityX(-velocidadJugador);
       player.anims.play('left', true);
     }
-
     else if (cursors.right.isDown)
     {
-      player.setVelocityX(200);
+      player.setVelocityX(velocidadJugador);
       player.anims.play('right', true);
     }
-
     else
     {
       player.setVelocityX(0);
       player.anims.play('turn');
     }
-    
-
     if (cursors.up.isDown && player.body.blocked.down)
     {     
       player.setVelocityY(-400);  
     }
 
-    //Movimiento del enemigo
+    if(scoreNivel2>100){
+      this.gameWin()
+    }
 
-//enemy
-if(enemy.x<185)
-{
-  enemy.setVelocityX(+100)
-  // enemy.anims.play("derecha", true);
-}
-if(enemy.x>670)
-{
-  enemy.setVelocityX(-100)
-  // enemy.anims.play("izquierda", true);
-}
+    if(!player_collider.active)
+    {
+      tempo+=delta
+      if(tempo>=2000) 
+      {
+        player_collider.active=true
+        tempo=0
+      }
+    }
+    if(!player_collider2.active)
+    {
+      tempo2+=delta
+      if(tempo2>=2000) 
+      {
+        player_collider2.active=true
+        tempo2=0
+      }
+    }
 
-//enemy2
-if(enemy2.x<830)
-{
-  enemy2.setVelocityX(+100)
-  // anims.play("derecha", true);
-}
-if(enemy2.x>1500)
-{
-  enemy2.setVelocityX(-100)
-  // anims.play("izquierda", true);
-}
+    if (initialTime <= 0){
+      this.gameOver();
+    }
 
-//enemy3
-if(enemy3.x<420)
-{
-  enemy3.setVelocityX(+100)
-// anims.play("derecha", true);
-}
-if(enemy3.x>865)
-{
-  enemy3.setVelocityX(-100)
-  // anims.play("izquierda", true);
-}
+    if (vidas <= 0){
+      this.gameOver();       
+    }
 
-//enemy4
-if(enemy4.x<793)
-{
-  enemy4.setVelocityX(+100)
-  // anims.play("derecha", true);
-}
-if(enemy4.x>1450)
-{
-  enemy4.setVelocityX(-100)
-  // anims.play("izquierda", true);
-}
+    if (spawn=1 )
+    {
+      spawnTime += delta;
+      if(spawnTime >= 15000)
+      {
+        spawnTime = 0
+        this.spawnPowerUpAzul()
+      }
+    }
 
-//enemy5
-if(enemy5.x<150)
-{
-  enemy5.setVelocityX(+100)
-  // anims.play("derecha", true);
-}
-if(enemy5.x>685)
-{
-  enemy5.setVelocityX(-100)
-  // anims.play("izquierda", true);
-}
+    if (spawn=2)
+    {       
+      spawnTime += delta;
+      if(spawnTime >= 15000)
+      {
+        spawnTime = 0
+        this.spawnPowerUpRed()
+      }
+    }
 
-//enemy6
-if(enemy6.x<126)
-{
-  enemy6.setVelocityX(+200)
-  // enemy.anims.play("derecha", true);
-}
-if(enemy6.x>1450)
-{
-  enemy6.setVelocityX(-200)
-  // enemy.anims.play("izquierda", true);
-}
+    if (spawn=3)
+    {
+      spawnTime += delta;
+      if(spawnTime >= 15000)
+      {
+        spawnTime = 0
+        this.spawnPowerUpYellow()
+      }
+    }
+  }
+    /* POWERUPS */
+                    /* PODER AZUL */
+  spawnPowerUpAzul(){    
+    powerAzul = this.physics.add.sprite (Phaser.Math.Between(100, 1000), Phaser.Math.Between(100, 500), 'poderAzul');
+    this.physics.add.collider(powerAzul, solidosCueva1);
+    this.physics.add.overlap(player, powerAzul, this.PowerUpAzul, null, this);
+    powerAzul.setScale(0.12);
+  }  
+  PowerUpAzul(player, powerAzul){    
+    powerAzul.disableBody(true, true);
+    player.setVelocityX(velocidadJugador = velocidadJugador + 100);
+  }
+                    /* PODER ROJO */
+  spawnPowerUpRed(){    
+    powerRed = this.physics.add.sprite (Phaser.Math.Between(100, 1000), Phaser.Math.Between(100, 500), 'poderRed');
+    this.physics.add.overlap(player, powerRed, this.PowerUpRed, null, this);
+    this.physics.add.collider(powerRed, solidosCueva1);    
+    powerRed.setScale(0.12);
+  }
+  PowerUpRed(player, powerRed){
+    powerRed.disableBody(true, true);
+    vidas += 1;
+    textVidas.setText('Vidas: '+ vidas)
+  }
+                    /* PODER AMARILLO */
+  spawnPowerUpYellow(){    
+    powerYellow = this.physics.add.sprite (Phaser.Math.Between(100, 1000), Phaser.Math.Between(100, 500), 'poderYellow');
+    this.physics.add.collider(powerYellow, solidosCueva1);    
+    this.physics.add.overlap(player, powerYellow, this.PowerUpYellow, null, this);
+    powerYellow.setScale(0.12);
+  }
+  PowerUpYellow(player, powerYellow){
+    powerYellow.disableBody(true, true);
+    initialTime = initialTime +10;
+    timeText.setText('Tiempo: ' + initialTime)
   }
 
+  /* HITS */
+  hitPlayer2 (player, puas11)
+  {
+    vidas -= 1;
+    textVidas.setText('Vidas: '+ vidas)
+    player_collider2.active = false;
+  }
+  hitPlayer(player, enemy,)
+  {
+    vidas -= 1;
+    textVidas.setText('Vidas: '+ vidas)
+    player_collider.active = false;
+  }
 
+  /* TEMPORIZADOR */
+  onSecond()
+  {
+    if (! gameOver)
+    {
+      //descuento de segundos
+      initialTime = initialTime -1; // One second
+      timeText.setText('Tiempo: '+ initialTime);
+      if (initialTime == 0) 
+      {
+        timedEvent.paused = true;
+        this.gameOver()
+      }
+    }
+  }
+    /* ITEMS */
+  juntarMonedas (player, moned){
+    moned.disableBody(true, true);
+    scoreNivel2 += 10;
+    scoreText1.setText('Puntaje: ' + scoreNivel2);
+
+    /* Sonido */
+    sonidoCoin.play({volume:0.4});
+
+    if (moneda.countActive(true) === 0)
+    {
+      //  Nuevas monedas
+      moneda.children.iterate(function (child) {
+        child.enableBody(true, child.x, 200, true, true);
+      });
+    }
+  }
+
+  juntarMonedasRed (player, monedaRr){
+    monedaRr.disableBody(true, true);
+    scoreNivel2 += 30;
+    scoreText1.setText('Puntaje: ' + scoreNivel2);
+
+    /* Sonido */    
+    sonidoCoin.play({volume:0.4});
+
+    if (monedaR.countActive(true) === 0){
+      /* Nuevas monedas rojas */
+      monedaR.children.iterate(function(child){
+        child.enableBody(true, child.x, 200, true, true);        
+      });
+      
+      /* Respawn perros */
+      var x = (player.x < 600) ? Phaser.Math.Between(600, 1000) : Phaser.Math.Between(0, 600);
+
+      var dogis = dogi.create(x, 300, 'dogito');
+      dogis.setBounce(1);
+      dogis.setScale(0.2);
+      dogis.setVelocity(Phaser.Math.Between(-100, 100), 20);
+      dogis.allowGravity = false;
+      dogi.playAnimation('dogCorre'); 
+      
+    }
+  }
+
+  juntarPerro (player, dogi){
+    dogi.disableBody(true, true);
+    scoreNivel2 += 100;
+    scoreText1.setText('Puntaje: ' + scoreNivel2)
+
+    /* Sonido */    
+    sonidoCoin.play({volume:0.4});
+  }  
+
+  gameOver(){
+    gameOver2 = true;
+    this.physics.pause();  
+    
+    musicaNivel2.stop();
+
+    textGameOver = this.add.text(400, 300, 'Has Perdido', 
+    { fontFamily: 'Arial', fontSize: 110, color: '#ff0000'})
+    .setInteractive()
+    .on('pointerdown', () => this.scene.start('gameover2'));
+    textGameOver.scrollFactorX = 0;
+    textGameOver.scrollFactorY = 0;
+  }
+
+  gameWin(){
+    gameWin2 = true;
+    musicaNivel2.stop();
+    this.physics.pause();
+    this.scene.start('gamewin2');
+  }
 }

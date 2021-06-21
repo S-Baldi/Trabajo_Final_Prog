@@ -1,6 +1,6 @@
-class go1 extends Phaser.Scene{
+class go2 extends Phaser.Scene{
   constructor(){
-    super('gameover');
+    super('gameover2');
   }
 
   preload(){
@@ -18,7 +18,7 @@ class go1 extends Phaser.Scene{
     logoMenu = this.add.image(700, 200, 'logo').setScale(0.8);
     textGo = this.add.text(470, 400, 'HAS PERDIDO \n',
     {font: 'bold 50pt Arial', fontSize: '36px', fill: '#ff0000', align:'center'});
-    textGo =this.add.text(500, 500, 'Puntos Obtenidos : ' + scoreNivel1,
+    textGo =this.add.text(500, 500, 'Puntos Obtenidos : ' + scoreNivel2,
     {font: 'bold 30pt Arial', fontSize: '36px', fill: '#fff', align:'center'});
     textGo =this.add.text(470, 580, 'Presiona R para reintentar',
     {font: 'italic 30pt Arial', fontSize: '36px', fill: '#fff', align:'center'});
@@ -33,7 +33,7 @@ class go1 extends Phaser.Scene{
 
   update(){
     if (teclaR.isDown){
-      this.scene.start('escena1')
+      this.scene.start('escena2')
     }
   }
 }

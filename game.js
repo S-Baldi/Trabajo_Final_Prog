@@ -10,7 +10,7 @@ var config = {
         debug: true
       }
   },
-  scene: [mp1, sc1, sc2, h1, cr1, go1, gw1]
+  scene: [prec, mp1, sc1, sc2, h1, cr1, go1, gw1, go2, gw2]
 };
 
 var game = new Phaser.Game(config);
@@ -18,11 +18,6 @@ var game = new Phaser.Game(config);
 /* Variables en Comun */
 var player;
 var enemy;
-var enemy2;
-var enemy3;
-var enemy4;
-var enemy5;
-var enemy6;
 var cursors;
 var moneda;
 var monedaR;
@@ -30,13 +25,16 @@ var monedaR;
 var vidas = 3;
 var textVidas;
 var player_collider;
+var player_collider2;
 var tempo = 0;
+var tempo2 = 0;
 var dogi;
 var initialTime;
 var timeText;
 var timedEvent;
 var textGameOver;
 var velocidadJugador = 200;
+var scoreTotal = 0;
 
 /* Variables Menu */
 var empezarSc1;
@@ -72,9 +70,10 @@ var solidosCueva1;
 var mapa2;
 var puas11;
 var puas22;
-var scoreNivel2;
+var scoreNivel2 = 0;
 var scoreText2;
-var gameOver1;
+var gameOver2;
+var gameWin2;
 
 /* Créditos */
 var logoPh;
@@ -92,6 +91,7 @@ var imgPower;
 /* GameOver */
 var textGo;
 var botonIrMenu;
+var botonIrLevel2;
 
 /* Música y Sonidos */
 var musicaNivel1;
@@ -105,6 +105,9 @@ var spawn;
 var powerRed;
 var powerAzul;
 var powerYellow;
+
+/* Precarga */
+var textPrecarga; 
 
 /* Bala */
 /* var fireButton;

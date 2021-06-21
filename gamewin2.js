@@ -1,6 +1,6 @@
-class gw1 extends Phaser.Scene{
+class gw2 extends Phaser.Scene{
   constructor(){
-    super('gamewin');
+    super('gamewin2');
   }
 
   preload(){
@@ -8,19 +8,16 @@ class gw1 extends Phaser.Scene{
   }
 
   create(){
+    scoreTotal = scoreTotal + scoreNivel1 + scoreNivel2;
     fondoMenu = this.add.image(700, 300, 'fondo');
 
     logoMenu = this.add.image(700, 200, 'logo').setScale(0.8);
     textGo = this.add.text(470, 400, 'HAS GANADO \n', 
     {font: 'bold 50pt Arial', fontSize: '36px', fill: '#00ff00', align:'center'});
-    textGo =this.add.text(470, 500, 'Puntos Obtenidos : ' + scoreNivel1 , 
+    textGo =this.add.text(470, 500, 'Puntos Obtenidos : ' + scoreNivel2 , 
     {font: 'bold 30pt Arial', fontSize: '36px', fill: '#fff', align:'center'});
-
-    botonIrLevel2 = this.add.text(620, 600, 'Nivel 2', { font: 'bold 40pt Arial', fill: '#ffffff'})
-    .setInteractive()
-    .on('pointerover', () => this.add.text(620, 600, 'Nivel 2', { font: 'bold 40pt Arial', fontSize: '36px', fill: '#FF2D00'}))
-    .on('pointerout', () => this.add.text(620, 600, 'Nivel 2', { font: 'bold 40pt Arial', fontSize: '36px', fill: '#ffffff'}))
-    .on('pointerdown', () => this.scene.start('escena2'))
+    textGo =this.add.text(450, 570, 'Puntos Totales : ' + scoreTotal , 
+    {font: 'bold 40pt Arial', fontSize: '36px', fill: '#fff', align:'center'});
 
     botonIrMenu = this.add.text(50, 500, 'Menú', { font: 'bold 20pt Arial', fill: '#ffffff'})
     .setInteractive()
