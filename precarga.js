@@ -36,7 +36,7 @@ class prec extends Phaser.Scene{
   update(time, delta)
   {
     tempo += delta
-    if (tempo >= 5000){
+    if (tempo >= 15000){
       tempo = 0
       this.scene.start('menu'); 
     }
