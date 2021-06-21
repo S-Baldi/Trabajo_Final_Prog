@@ -13,7 +13,7 @@ class gw1 extends Phaser.Scene{
     logoMenu = this.add.image(700, 200, 'logo').setScale(0.8);
     textGo = this.add.text(470, 400, 'HAS GANADO \n', 
     {font: 'bold 50pt Arial', fontSize: '36px', fill: '#00ff00', align:'center'});
-    textGo =this.add.text(470, 500, 'Puntos Obtenidos : ' + scoreNivel1 , 
+    textGo =this.add.text(480, 500, 'Puntos Obtenidos : ' + scoreNivel1 , 
     {font: 'bold 30pt Arial', fontSize: '36px', fill: '#fff', align:'center'});
 
     botonIrLevel2 = this.add.text(620, 600, 'Nivel 2', { font: 'bold 40pt Arial', fill: '#ffffff'})

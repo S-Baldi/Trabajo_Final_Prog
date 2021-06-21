@@ -18,10 +18,10 @@ class go2 extends Phaser.Scene{
     logoMenu = this.add.image(700, 200, 'logo').setScale(0.8);
     textGo = this.add.text(470, 400, 'HAS PERDIDO \n',
     {font: 'bold 50pt Arial', fontSize: '36px', fill: '#ff0000', align:'center'});
-    textGo =this.add.text(500, 500, 'Puntos Obtenidos : ' + scoreNivel2,
+    textGo =this.add.text(480, 500, 'Puntos Obtenidos : ' + scoreNivel2,
     {font: 'bold 30pt Arial', fontSize: '36px', fill: '#fff', align:'center'});
-    textGo =this.add.text(470, 580, 'Presiona R para reintentar',
-    {font: 'italic 30pt Arial', fontSize: '36px', fill: '#fff', align:'center'});
+    textGo =this.add.text(550, 580, 'Presiona R para reintentar',
+    {font: 'italic 20pt Arial', fontSize: '36px', fill: '#fff', align:'center'});
 
     botonIrMenu = this.add.text(50, 500, 'Menú', { font: 'bold 20pt Arial', fill: '#ffffff'})
     .setInteractive()

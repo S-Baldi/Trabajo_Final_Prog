@@ -241,7 +241,7 @@ class sc1 extends Phaser.Scene{
       return;
     }
 
-    if(scoreNivel1>1000){
+    if(scoreNivel1>999){
       this.gameWin()
     }
 
