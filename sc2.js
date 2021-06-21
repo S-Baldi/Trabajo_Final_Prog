@@ -3,7 +3,6 @@ class sc2 extends Phaser.Scene{
     super('escena2');
   }
   preload(){
-
   }
 
   create(){
@@ -41,7 +40,7 @@ class sc2 extends Phaser.Scene{
     player.setBounce(0.2);
     player.setScale(0.2);
     /* Cambiar tamaño de hitbox */
-    player.setSize(200, 300);
+    player.setSize(170, 300);
     this.cameras.main.setBounds(0, 0, mapa2.widthInPixels, mapa2.heightInPixels);
     this.cameras.main.startFollow(player);
 
@@ -49,29 +48,34 @@ class sc2 extends Phaser.Scene{
     enemy = this.physics.add.group({
       key: 'robot',
       repeat: 4,
-      setXY:{x:180, y:300, stepX:330}
+      setXY:{x:170, y:300, stepX:300}
     })
     enemy.children.iterate(function (child){
-      child.setBounce(0.2);
+      child.setBounce(0.7);
       child.setScale(0.25);
-      child.setSize(140 , 230);      
+      child.setSize(120 , 200);
     })    
     let timeline = this.tweens.timeline({
       targets: enemy,
-      ease: 'Circ',
-      duration: 4000,
+      ease: 'Lineal',
+      duration: 6000,
       loop: -1,
-      yoyo:-1,
       tweens:[
         {x:400}
       ]
     })
+
+    enemy2 = this.physics.add.sprite(100, 800, 'robot')
+    enemy2.setBounce(0.2);
+    enemy2.setScale(0.25);
+    enemy2.setSize(120 , 200);
+    
     /* Moneda */    
     /* Animacion moneda */
     moneda = this.physics.add.group({
       key: 'coin',
       repeat: 14,
-      setXY: {x: 50, y:Phaser.Math.FloatBetween(50, 800), stepX: Phaser.Math.Between(50, 70)},
+      setXY: {x: 50, y:Phaser.Math.FloatBetween(400, 800), stepX: Phaser.Math.Between(50, 70)},
     })
     moneda.children.iterate(function (child){
       child.setBounce(1);
@@ -92,7 +96,7 @@ class sc2 extends Phaser.Scene{
     monedaR = this.physics.add.group({
       key: 'coinRed',
       repeat: 2,
-      setXY: {x: 100, y:Phaser.Math.FloatBetween(150, 600), stepX: Phaser.Math.Between(300, 700)},
+      setXY: {x: 100, y:Phaser.Math.FloatBetween(400, 800), stepX: Phaser.Math.Between(300, 700)},
     })
     monedaR.children.iterate(function(child){
       child.setBounce(1);
@@ -131,6 +135,8 @@ class sc2 extends Phaser.Scene{
     this.physics.add.collider(enemy, solidosCueva1);
     this.physics.add.collider(dogi, solidosCueva1);
     this.physics.add.collider(enemy, solidosInvisibles);
+    this.physics.add.collider(enemy2, solidosCueva1);
+    this.physics.add.collider(player, enemy2);
     
     /* Overlaps */
     this.physics.add.overlap(player, moneda, this.juntarMonedas);
@@ -151,7 +157,7 @@ class sc2 extends Phaser.Scene{
     textVidas.scrollFactorX = 0;
     textVidas.scrollFactorY = 0;
     
-    initialTime = 40;
+    initialTime = 60;
     timeText = this.add.text(950, 0, 'Tiempo: ' + initialTime, 
     {font: 'bold 30pt Arial', fontSize: '36px', fill: '#fff', align:'center'});
     timeText.scrollFactorX = 0;
@@ -179,6 +185,7 @@ class sc2 extends Phaser.Scene{
     if (teclaR.isDown)
     {
       this.scene.restart();
+      musicaNivel2.stop();
     }
     if (teclaP.isDown)
     {
@@ -205,7 +212,7 @@ class sc2 extends Phaser.Scene{
       player.setVelocityY(-400);  
     }
 
-    if(scoreNivel2>100){
+    if(scoreNivel2>999){
       this.gameWin()
     }
 
@@ -239,7 +246,7 @@ class sc2 extends Phaser.Scene{
     if (spawn=1 )
     {
       spawnTime += delta;
-      if(spawnTime >= 15000)
+      if(spawnTime >= 30000)
       {
         spawnTime = 0
         this.spawnPowerUpAzul()
@@ -249,7 +256,7 @@ class sc2 extends Phaser.Scene{
     if (spawn=2)
     {       
       spawnTime += delta;
-      if(spawnTime >= 15000)
+      if(spawnTime >= 30000)
       {
         spawnTime = 0
         this.spawnPowerUpRed()
@@ -259,7 +266,7 @@ class sc2 extends Phaser.Scene{
     if (spawn=3)
     {
       spawnTime += delta;
-      if(spawnTime >= 15000)
+      if(spawnTime >= 30000)
       {
         spawnTime = 0
         this.spawnPowerUpYellow()
@@ -268,6 +275,13 @@ class sc2 extends Phaser.Scene{
 
     if (enemy.x > 0){
       enemy.setVelocityX(-200)
+    }
+
+    if (enemy2.x > 1100){
+      enemy2.setVelocityX(-350)
+    }
+    if (enemy2.x < 200){
+      enemy2.setVelocityX (+350)
     }
   }
     /* POWERUPS */
@@ -281,6 +295,7 @@ class sc2 extends Phaser.Scene{
   PowerUpAzul(player, powerAzul){    
     powerAzul.disableBody(true, true);
     player.setVelocityX(velocidadJugador = velocidadJugador + 100);
+    sonidoPower.play();
   }
                     /* PODER ROJO */
   spawnPowerUpRed(){    
@@ -293,6 +308,7 @@ class sc2 extends Phaser.Scene{
     powerRed.disableBody(true, true);
     vidas += 1;
     textVidas.setText('Vidas: '+ vidas)
+    sonidoPower.play();
   }
                     /* PODER AMARILLO */
   spawnPowerUpYellow(){    
@@ -305,6 +321,7 @@ class sc2 extends Phaser.Scene{
     powerYellow.disableBody(true, true);
     initialTime = initialTime +10;
     timeText.setText('Tiempo: ' + initialTime)
+    sonidoPower.play();
   }
 
   /* HITS */
@@ -349,7 +366,7 @@ class sc2 extends Phaser.Scene{
     {
       //  Nuevas monedas
       moneda.children.iterate(function (child) {
-        child.enableBody(true, child.x, 200, true, true);
+        child.enableBody(true, Phaser.Math.Between(100, 1200), Phaser.Math.Between(100, 500), true, true);
       });
     }
   }
@@ -365,7 +382,7 @@ class sc2 extends Phaser.Scene{
     if (monedaR.countActive(true) === 0){
       /* Nuevas monedas rojas */
       monedaR.children.iterate(function(child){
-        child.enableBody(true, child.x, 200, true, true);        
+        child.enableBody(true, Phaser.Math.Between(100, 1200), Phaser.Math.Between(100, 500), true, true);        
       });
       
       /* Respawn perros */

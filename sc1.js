@@ -43,7 +43,7 @@ class sc1 extends Phaser.Scene{
     player.setBounce(0.2);
     player.setScale(0.2);
     /* Cambiar tamaño de hitbox */
-    player.setSize(200, 300); 
+    player.setSize(170, 300); 
     /* Primero: sacar colisiones del personaje con el mundo */    
     this.cameras.main.setBounds(0, 0, mapa.widthInPixels, mapa.heightInPixels);
     this.cameras.main.startFollow(player);
@@ -56,7 +56,7 @@ class sc1 extends Phaser.Scene{
     enemy.children.iterate(function (child){
       child.setBounce(0.7);
       child.setScale(0.25);
-      child.setSize(140 , 230);      
+      child.setSize(120 , 200);      
     })    
     let timeline = this.tweens.timeline({
       targets: enemy,
@@ -84,7 +84,7 @@ class sc1 extends Phaser.Scene{
     moneda = this.physics.add.group({
       key: 'coin',
       repeat: 14,
-      setXY: {x: 50, y:Phaser.Math.FloatBetween(50, 800), stepX: Phaser.Math.Between(50, 70)},
+      setXY: {x: 50, y:Phaser.Math.FloatBetween(50, 400), stepX: Phaser.Math.Between(50, 70)},
     })
     moneda.children.iterate(function (child){
       child.setBounce(1);
@@ -123,18 +123,7 @@ class sc1 extends Phaser.Scene{
     monedaR.playAnimation('giroRed');
 
     /* Perro */
-    dogi = this.physics.add.group()  /*({
-      key: 'dogito',
-      repeat: 1,
-      setXY: {x: 400, y:300, stepX: Phaser.Math.Between(300, 700)},      
-    })
-    dogi.children.iterate(function(child){
-      child.setBounce(1);
-      child.setScale(0.2);
-      child.setVelocity(Phaser.Math.Between(-100, 100), 20);
-      child.disableBody(true);
-      child.setVisible(false);
-    })*/
+    dogi = this.physics.add.group()
     this.anims.create({
       key: 'dogCorre',
       frames:this.anims.generateFrameNumbers('dogito',{
@@ -143,12 +132,10 @@ class sc1 extends Phaser.Scene{
       }),
       repeat: -1,
       frameRate: 7
-    })
-    
+    }) 
 
     /* PowerupAzul */
-
-/*     this.anims.create({
+  /*this.anims.create({
       key: 'giroblue',
       frames:this.anims.generateFrameNumbers('poderAzul.', {
         start: 0,
@@ -185,7 +172,7 @@ class sc1 extends Phaser.Scene{
     textVidas.scrollFactorX = 0;
     textVidas.scrollFactorY = 0;
     
-    initialTime = 40;
+    initialTime = 60;
     timeText = this.add.text(950, 0, 'Tiempo: ' + initialTime, 
     {font: 'bold 30pt Arial', fontSize: '36px', fill: '#fff', align:'center'});
     timeText.scrollFactorX = 0;
@@ -254,7 +241,7 @@ class sc1 extends Phaser.Scene{
       return;
     }
 
-    if(scoreNivel1>100){
+    if(scoreNivel1>1000){
       this.gameWin()
     }
 
@@ -382,7 +369,7 @@ class sc1 extends Phaser.Scene{
     {
       //  Nuevas monedas
       moneda.children.iterate(function (child) {
-        child.enableBody(true, child.x, 200, true, true);
+        child.enableBody(true, Phaser.Math.Between(100, 1000), Phaser.Math.Between(100, 500), true, true);
       });
     }
   }
@@ -398,7 +385,7 @@ class sc1 extends Phaser.Scene{
     if (monedaR.countActive(true) === 0){
       /* Nuevas monedas rojas */
       monedaR.children.iterate(function(child){
-        child.enableBody(true, child.x, 200, true, true);        
+        child.enableBody(true, Phaser.Math.Between(100, 1200), Phaser.Math.Between(100, 500), true, true);        
       });
       
       /* Respawn perros */

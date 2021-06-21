@@ -18,6 +18,7 @@ var game = new Phaser.Game(config);
 /* Variables en Comun */
 var player;
 var enemy;
+var enemy2;
 var cursors;
 var moneda;
 var monedaR;
@@ -26,8 +27,10 @@ var vidas = 3;
 var textVidas;
 var player_collider;
 var player_collider2;
+var player_collider3;
 var tempo = 0;
 var tempo2 = 0;
+var tempo3 = 0;
 var dogi;
 var initialTime;
 var timeText;

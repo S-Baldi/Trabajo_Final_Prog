@@ -66,6 +66,8 @@ class mp1 extends Phaser.Scene{
 
     musicaMenu = this.sound.add('musicaMenu');
     musicaMenu.play({volume:0.2, loop:true});
+
+    scoreTotal = 0;
   }
 
   update(){}
