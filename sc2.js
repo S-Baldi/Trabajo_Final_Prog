@@ -27,9 +27,8 @@ class sc2 extends Phaser.Scene{
     backCueva11 = mapa2.createLayer('back1', backCueva1, 0, 0);
     backCueva22 = mapa2.createLayer('back2', backCueva2, 0, 0);
     backCueva33 = mapa2.createLayer('back3', backCueva3, 0, 0);
-    backCueva44 = mapa2.createLayer('back4', backCueva4, 0, 0);    
+    backCueva44 = mapa2.createLayer('back4', backCueva4, 0, 0);  
     puas11 = mapa2.createLayer('puas', puas1, 0, 0);
-    puas11 = mapa2.createLayer('puas2', puas1, 0, 0);
     puas11.setCollisionByProperty({solidopua: true});
     solidosCueva1 = mapa2.createLayer('plataformas', solidosCueva, 0, 0);
     solidosCueva1.setCollisionByProperty({ solido:true });
@@ -136,7 +135,7 @@ class sc2 extends Phaser.Scene{
     this.physics.add.collider(dogi, solidosCueva1);
     this.physics.add.collider(enemy, solidosInvisibles);
     this.physics.add.collider(enemy2, solidosCueva1);
-    this.physics.add.collider(player, enemy2);
+    player_collider3 = this.physics.add.collider(player, enemy2, this.hitPlayer3, null, this);
     
     /* Overlaps */
     this.physics.add.overlap(player, moneda, this.juntarMonedas);
@@ -234,6 +233,16 @@ class sc2 extends Phaser.Scene{
         tempo2=0
       }
     }
+  
+    if(!player_collider3.active)
+    {
+      tempo2+=delta
+      if(tempo2>=2000) 
+      {
+        player_collider3.active=true
+        tempo2=0
+      }
+    }
 
     if (initialTime <= 0){
       this.gameOver();
@@ -246,7 +255,7 @@ class sc2 extends Phaser.Scene{
     if (spawn=1 )
     {
       spawnTime += delta;
-      if(spawnTime >= 30000)
+      if(spawnTime >= 45000)
       {
         spawnTime = 0
         this.spawnPowerUpAzul()
@@ -256,7 +265,7 @@ class sc2 extends Phaser.Scene{
     if (spawn=2)
     {       
       spawnTime += delta;
-      if(spawnTime >= 30000)
+      if(spawnTime >= 45000)
       {
         spawnTime = 0
         this.spawnPowerUpRed()
@@ -266,7 +275,7 @@ class sc2 extends Phaser.Scene{
     if (spawn=3)
     {
       spawnTime += delta;
-      if(spawnTime >= 30000)
+      if(spawnTime >= 45000)
       {
         spawnTime = 0
         this.spawnPowerUpYellow()
@@ -325,6 +334,12 @@ class sc2 extends Phaser.Scene{
   }
 
   /* HITS */
+  hitPlayer3 (player, enemy2)
+  {
+    vidas -= 1;
+    textVidas.setText('Vidas: '+ vidas)
+    player_collider3.active = false;
+  }
   hitPlayer2 (player, puas11)
   {
     vidas -= 1;

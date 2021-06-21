@@ -73,7 +73,6 @@ var solidosCueva1;
 var solidosInvisibles;
 var mapa2;
 var puas11;
-var puas22;
 var scoreNivel2 = 0;
 var scoreText2;
 var gameOver2;
