@@ -266,7 +266,7 @@ class sc1 extends Phaser.Scene{
     if (spawn=1 )
     {
       spawnTime += delta;
-      if(spawnTime >= 30000)
+      if(spawnTime >= 45000)
       {
         spawnTime = 0
         this.spawnPowerUpAzul()
@@ -276,7 +276,7 @@ class sc1 extends Phaser.Scene{
     if (spawn=2)
     {       
       spawnTime += delta;
-      if(spawnTime >= 30000)
+      if(spawnTime >= 45000)
       {
         spawnTime = 0
         this.spawnPowerUpRed()
@@ -286,7 +286,7 @@ class sc1 extends Phaser.Scene{
     if (spawn=3)
     {
       spawnTime += delta;
-      if(spawnTime >= 30000)
+      if(spawnTime >= 45000)
       {
         spawnTime = 0
         this.spawnPowerUpYellow()
