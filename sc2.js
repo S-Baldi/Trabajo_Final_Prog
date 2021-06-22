@@ -245,11 +245,11 @@ class sc2 extends Phaser.Scene{
     }
 
     if (initialTime <= 0){
-      this.gameOver();
+      this.gameOver2();
     }
 
     if (vidas <= 0){
-      this.gameOver();       
+      this.gameOver2();       
     }
 
     if (spawn=1 )
@@ -422,7 +422,7 @@ class sc2 extends Phaser.Scene{
     sonidoCoin.play({volume:0.4});
   }  
 
-  gameOver(){
+  gameOver2(){
     gameOver2 = true;
     this.physics.pause();  
     

@@ -237,10 +237,6 @@ class sc1 extends Phaser.Scene{
     }
     
 
-    if (gameOver){
-      return;
-    }
-
     if(scoreNivel1>999){
       this.gameWin()
     }
@@ -415,7 +411,7 @@ class sc1 extends Phaser.Scene{
     this.physics.pause();  
     
     musicaNivel1.stop();
-    
+
     player.anims.play('river');
 
     textGameOver = this.add.text(400, 300, 'Has Perdido', 
