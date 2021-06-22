@@ -415,6 +415,8 @@ class sc1 extends Phaser.Scene{
     this.physics.pause();  
     
     musicaNivel1.stop();
+    
+    player.anims.play('river');
 
     textGameOver = this.add.text(400, 300, 'Has Perdido', 
     { fontFamily: 'Arial', fontSize: 110, color: '#ff0000'})

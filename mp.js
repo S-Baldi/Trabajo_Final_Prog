@@ -32,7 +32,7 @@ class mp1 extends Phaser.Scene{
 
     this.anims.create({
       key: 'river',
-      frames: [ { key: 'dude', frame: 14} ],
+      frames: [ { key: 'dead', frame: 0} ],
       frameRate:20
     })  
 

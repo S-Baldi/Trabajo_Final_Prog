@@ -28,7 +28,7 @@ class prec extends Phaser.Scene{
 
     /* Personaje */
     this.load.spritesheet('dude', 'assets/solda2.png', {frameWidth:300, frameHeight: 345});
-    /* this.load.spritesheet('dead', 'assets/muerto.png', {frameWidth:100, frameHeight: 1000}); */
+    this.load.spritesheet('dead', 'assets/muerto.png', {frameWidth:300, frameHeight: 345});
 
     /* Enemigo */
     this.load.spritesheet('robot', 'assets/enemigo.png', {frameWidth:130, frameHeight:230});
