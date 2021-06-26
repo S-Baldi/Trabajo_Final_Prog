@@ -5,8 +5,8 @@ class sc1 extends Phaser.Scene{
 
 
   preload(){
-    
-
+    let url = 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexvirtualjoystickplugin.min.js';
+    this.load.plugin('rexvirtualjoystickplugin', url, true);
   }
 
   create(){    
@@ -16,7 +16,7 @@ class sc1 extends Phaser.Scene{
       teclaR = this.input.keyboard.addKey('R');
       teclaP = this.input.keyboard.addKey('P');
     }
-    
+
     mapa = this.make.tilemap({ key : 'mapa'});
     var tilesets0 = mapa.addTilesetImage('TileSet2', 'plataformas');
     var montaña1 = mapa.addTilesetImage('Fondo1', 'fondomontaña');
@@ -194,6 +194,18 @@ class sc1 extends Phaser.Scene{
 
     spawn = Phaser.Math.FloatBetween(1, 3);
     spawnTime = 0;
+
+    this.joystick = this.plugins.get('rexvirtualjoystickplugin').add(this, {
+      x: 1200,
+      y: 600,
+      radius: 100,
+      base: this.add.circle(0, 0, 50, 0x027559),
+      thumb: this.add.circle(0, 0, 15, 0xcccccc),
+    })
+    .on('update', this.dumpJoyStickState, this);
+
+    this.text = this.add.text(0, 0);
+    this.dumpJoyStickState();
   }
 
   update(time, delta){
@@ -208,29 +220,30 @@ class sc1 extends Phaser.Scene{
       this.scene.start('menu');      
       musicaNivel1.stop();
     }
+     /* CONTROLES JOYSTICK */
+    var leftKeyDown = this.joystick.left;
+    var rightKeyDown = this.joystick.right;
+    var upKeyDown = this.joystick.up;
 
-    if (cursors.left.isDown)
+    if (cursors.left.isDown || leftKeyDown)
     {
       player.setVelocityX(-velocidadJugador);
       player.anims.play('left', true);
-      /* weapon.fireAngle = Phaser.ANGLE_LEFT; */
     }
-    else if (cursors.right.isDown)
+    else if (cursors.right.isDown || rightKeyDown)
     {
       player.setVelocityX(velocidadJugador);
       player.anims.play('right', true);
-      /* weapon.fireAngle = Phaser.ANGLE_RIGHT; */
     }
     else
     {
       player.setVelocityX(0);
       player.anims.play('turn');
     }
-    if (cursors.up.isDown && player.body.blocked.down)
+    if ((cursors.up.isDown || upKeyDown) && player.body.blocked.down)
     {     
       player.setVelocityY(-330);
-      /* weapon.fireAngle = Phaser.ANGLE_UP; */
-    }
+    }   
 
     if (enemy.x > 0){
       enemy.setVelocityX(-200)
@@ -244,11 +257,11 @@ class sc1 extends Phaser.Scene{
     if(!player_collider.active)
     {
       tempo+=delta
-      player.x = player.x +7
+      /* player.x = player.x +7
       if(tempo>=300)
       {
       player.x = player.x -7
-      }
+      } */
       if(tempo>=2000) 
       {
         player_collider.active=true
@@ -293,6 +306,19 @@ class sc1 extends Phaser.Scene{
         this.spawnPowerUpYellow()
       }
     }
+  }
+  dumpJoyStickState() {
+    var cursorKeys = this.joystick.createCursorKeys();
+    var s = 'Key down: ';
+    for (var name in cursorKeys) {
+        if (cursorKeys[name].isDown) {
+            s += name + ' ';
+        }
+    }
+    s += '\n';
+    s += ('Force: ' + Math.floor(this.joystick.force * 100) / 100 + '\n');
+    s += ('Angle: ' + Math.floor(this.joystick.angle * 100) / 100 + '\n');
+    //this.text.setText(s);
   }
   /* POWERUPS */
                     /* PODER AZUL */

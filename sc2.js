@@ -178,6 +178,18 @@ class sc2 extends Phaser.Scene{
     musicaNivel2.play({volume: 0.2, loop: true});
 
     sonidoPower = this.sound.add('pauer');
+
+    this.joystick = this.plugins.get('rexvirtualjoystickplugin').add(this, {
+      x: 1200,
+      y: 600,
+      radius: 100,
+      base: this.add.circle(0, 0, 50, 0x027559),
+      thumb: this.add.circle(0, 0, 15, 0xcccccc),
+    })
+    .on('update', this.dumpJoyStickState, this);
+
+    this.text = this.add.text(0, 0);
+    this.dumpJoyStickState();
   }
 
   update(time, delta){
@@ -186,13 +198,17 @@ class sc2 extends Phaser.Scene{
       this.scene.restart();
       musicaNivel2.stop();
     }
+     /* CONTROLES JOYSTICK */
+    var leftKeyDown = this.joystick.left;
+    var rightKeyDown = this.joystick.right;
+    var upKeyDown = this.joystick.up;
 
-    if (cursors.left.isDown)
+    if (cursors.left.isDown || leftKeyDown)
     {
       player.setVelocityX(-velocidadJugador);
       player.anims.play('left', true);
     }
-    else if (cursors.right.isDown)
+    else if (cursors.right.isDown || rightKeyDown)
     {
       player.setVelocityX(velocidadJugador);
       player.anims.play('right', true);
@@ -202,7 +218,7 @@ class sc2 extends Phaser.Scene{
       player.setVelocityX(0);
       player.anims.play('turn');
     }
-    if (cursors.up.isDown && player.body.blocked.down)
+    if ((cursors.up.isDown || upKeyDown) && player.body.blocked.down)
     {     
       player.setVelocityY(-400);  
     }
@@ -288,6 +304,20 @@ class sc2 extends Phaser.Scene{
     if (enemy2.x < 200){
       enemy2.setVelocityX (+350)
     }
+  }
+  /* Joystick */
+  dumpJoyStickState() {
+    var cursorKeys = this.joystick.createCursorKeys();
+    var s = 'Key down: ';
+    for (var name in cursorKeys) {
+        if (cursorKeys[name].isDown) {
+            s += name + ' ';
+        }
+    }
+    s += '\n';
+    s += ('Force: ' + Math.floor(this.joystick.force * 100) / 100 + '\n');
+    s += ('Angle: ' + Math.floor(this.joystick.angle * 100) / 100 + '\n');
+    //this.text.setText(s);
   }
     /* POWERUPS */
                     /* PODER AZUL */
