@@ -110,7 +110,7 @@ class sc1 extends Phaser.Scene{
     monedaR.children.iterate(function(child){
       child.setBounce(1);
       child.setScale(1.5);
-      child.setVelocity(200, 200);
+      child.setVelocity(150, 150);
     })
     this.anims.create({
       key: 'giroRed',

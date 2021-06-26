@@ -60,6 +60,7 @@ class prec extends Phaser.Scene{
     this.load.audio('musicaLevel1', 'audio/level1.ogg');
     this.load.audio('musicaLevel2', 'audio/level2.ogg');
     this.load.audio('pauer', 'audio/powerup.wav')
+    this.load.audio('button', 'audio/boton.mp3')
   }
 
   create(){    

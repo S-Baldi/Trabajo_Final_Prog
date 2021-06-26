@@ -41,6 +41,7 @@ var timedEvent;
 var textGameOver;
 var velocidadJugador = 200;
 var scoreTotal = 0;
+var button;
 
 /* Variables Menu */
 var empezarSc1;
