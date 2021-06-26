@@ -84,7 +84,7 @@ class sc1 extends Phaser.Scene{
     moneda = this.physics.add.group({
       key: 'coin',
       repeat: 14,
-      setXY: {x: 50, y:Phaser.Math.FloatBetween(50, 400), stepX: Phaser.Math.Between(50, 70)},
+      setXY: {x: 50, y:Phaser.Math.FloatBetween(50, 400), stepX: Phaser.Math.Between(50, 80),},
     })
     moneda.children.iterate(function (child){
       child.setBounce(1);
@@ -237,13 +237,18 @@ class sc1 extends Phaser.Scene{
     }
     
 
-    if(scoreNivel1>999){
+    if(scoreNivel1>499){
       this.gameWin()
     }
 
     if(!player_collider.active)
     {
       tempo+=delta
+      player.x = player.x +7
+      if(tempo>=300)
+      {
+      player.x = player.x -7
+      }
       if(tempo>=2000) 
       {
         player_collider.active=true

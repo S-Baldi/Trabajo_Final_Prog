@@ -74,7 +74,7 @@ class sc2 extends Phaser.Scene{
     moneda = this.physics.add.group({
       key: 'coin',
       repeat: 14,
-      setXY: {x: 50, y:Phaser.Math.FloatBetween(400, 800), stepX: Phaser.Math.Between(50, 70)},
+      setXY: {x: 50, y:30, stepX: Phaser.Math.Between(50, 100), stepY :Phaser.Math.Between(50, 100)},
     })
     moneda.children.iterate(function (child){
       child.setBounce(1);
@@ -95,7 +95,7 @@ class sc2 extends Phaser.Scene{
     monedaR = this.physics.add.group({
       key: 'coinRed',
       repeat: 2,
-      setXY: {x: 100, y:Phaser.Math.FloatBetween(400, 800), stepX: Phaser.Math.Between(300, 700)},
+      setXY: {x: 100, y:200, stepX: Phaser.Math.Between(300, 700), stepY :Phaser.Math.Between(100, 200) },
     })
     monedaR.children.iterate(function(child){
       child.setBounce(1);
@@ -185,10 +185,6 @@ class sc2 extends Phaser.Scene{
     {
       this.scene.restart();
       musicaNivel2.stop();
-    }
-    if (teclaP.isDown)
-    {
-      this.physics.pause();
     }
 
     if (cursors.left.isDown)
