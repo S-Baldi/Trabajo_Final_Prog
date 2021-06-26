@@ -3,8 +3,8 @@ var config = {
   scale: {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,
-    width: 1366,
-    height: 768,
+    width: window.innerWidth,
+    height: window.innerHeight,
     },
   physics: {
       default: 'arcade',
