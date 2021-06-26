@@ -5,12 +5,10 @@ class sc1 extends Phaser.Scene{
 
 
   preload(){
-    let url = 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexvirtualjoystickplugin.min.js';
-    this.load.plugin('rexvirtualjoystickplugin', url, true);
+    
   }
 
-  create(){    
-
+  create(){
     if (cursors =! undefined){
       cursors = this.input.keyboard.createCursorKeys();
       teclaR = this.input.keyboard.addKey('R');
@@ -40,7 +38,6 @@ class sc1 extends Phaser.Scene{
     /* Personaje */
     player = this.physics.add.sprite(50, 800, 'dude');
     /* player.setCollideWorldBounds(true); */
-    player.setBounce(0.2);
     player.setScale(0.2);
     /* Cambiar tamaño de hitbox */
     player.setSize(170, 300); 
@@ -231,15 +228,20 @@ class sc1 extends Phaser.Scene{
     }
     if ((cursors.up.isDown || upKeyDown) && player.body.blocked.down)
     {     
-      player.setVelocityY(-330);
-    }   
+      player.setVelocityY(-330);           
+    }
+
+    if (cursors.down.isDown){
+      player.setVelocityY(+330)
+    } 
+    
 
     if (enemy.x > 0){
       enemy.setVelocityX(-200)
     }
     
 
-    if(scoreNivel1>499){
+    if(scoreNivel1>999){
       this.gameWin()
     }
 
@@ -375,7 +377,7 @@ class sc1 extends Phaser.Scene{
   /* MONEDAS */
   juntarMonedas (player, moned){
     moned.disableBody(true, true);
-    scoreNivel1 += 10;
+    scoreNivel1 += 30;
     scoreText1.setText('Puntaje: ' + scoreNivel1);
 
     /* Sonido */
@@ -392,7 +394,7 @@ class sc1 extends Phaser.Scene{
 
   juntarMonedasRed (player, monedaRr){
     monedaRr.disableBody(true, true);
-    scoreNivel1 += 30;
+    scoreNivel1 += 50;
     scoreText1.setText('Puntaje: ' + scoreNivel1);
 
     /* Sonido */    
@@ -419,7 +421,7 @@ class sc1 extends Phaser.Scene{
 
   juntarPerro (player, dogi){
     dogi.disableBody(true, true);
-    scoreNivel1 += 100;
+    scoreNivel1 += 200;
     scoreText1.setText('Puntaje: ' + scoreNivel1)
 
     /* Sonido */    

@@ -36,7 +36,6 @@ class sc2 extends Phaser.Scene{
     /* Personaje */
     player = this.physics.add.sprite(100, 100, 'dude');
     /* player.setCollideWorldBounds(true); */
-    player.setBounce(0.2);
     player.setScale(0.2);
     /* Cambiar tamaño de hitbox */
     player.setSize(170, 300);
@@ -130,6 +129,8 @@ class sc2 extends Phaser.Scene{
     player_collider = this.physics.add.collider(player, enemy, this.hitPlayer, null, this);
     this.physics.add.collider(moneda, solidosCueva1);
     this.physics.add.collider(monedaR, solidosCueva1);
+    this.physics.add.collider(moneda, puas11);
+    this.physics.add.collider(monedaR, puas11);
     this.physics.add.collider(enemy, solidosCueva1);
     this.physics.add.collider(enemy, solidosCueva1);
     this.physics.add.collider(dogi, solidosCueva1);
@@ -222,8 +223,11 @@ class sc2 extends Phaser.Scene{
     {     
       player.setVelocityY(-400);  
     }
+    if (cursors.down.isDown){
+      player.setVelocityY(+330)
+    }
 
-    if(scoreNivel2>499){
+    if(scoreNivel2>699){
       this.gameWin()
     }
 
@@ -390,14 +394,14 @@ class sc2 extends Phaser.Scene{
       if (initialTime == 0) 
       {
         timedEvent.paused = true;
-        this.gameOver()
+        this.gameOver2()
       }
     }
   }
     /* ITEMS */
   juntarMonedas (player, moned){
     moned.disableBody(true, true);
-    scoreNivel2 += 10;
+    scoreNivel2 += 30;
     scoreText1.setText('Puntaje: ' + scoreNivel2);
 
     /* Sonido */
@@ -414,7 +418,7 @@ class sc2 extends Phaser.Scene{
 
   juntarMonedasRed (player, monedaRr){
     monedaRr.disableBody(true, true);
-    scoreNivel2 += 30;
+    scoreNivel2 += 50;
     scoreText1.setText('Puntaje: ' + scoreNivel2);
 
     /* Sonido */    
@@ -441,7 +445,7 @@ class sc2 extends Phaser.Scene{
 
   juntarPerro (player, dogi){
     dogi.disableBody(true, true);
-    scoreNivel2 += 100;
+    scoreNivel2 += 200;
     scoreText1.setText('Puntaje: ' + scoreNivel2)
 
     /* Sonido */    

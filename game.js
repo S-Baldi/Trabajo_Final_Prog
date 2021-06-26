@@ -1,5 +1,5 @@
 var config = {
-  type: Phaser.AUTO,
+  type: Phaser.WEBGL,
   scale: {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,
@@ -10,14 +10,14 @@ var config = {
       default: 'arcade',
       arcade: {
         gravity: { y: 350 },
-        debug: false
+        debug: true
       }
   },
   scene: [prec, mp1, sc1, sc2, h1, cr1, go1, gw1, go2, gw2]
 };
 
 var game = new Phaser.Game(config);
-var resizeGame = function () {
+/* var resizeGame = function () {
     let canvas = document.querySelector('canvas');
     const { innerWidth, innerHeight } = window; //object destructuring
     //const innerWidth = window.innerWidth;
@@ -34,7 +34,7 @@ var resizeGame = function () {
         canvas.style.width = innerHeight * gameRatio + 'px';
         canvas.style.height = innerHeight + 'px';
     }
-}
+} */
 
 /* Variables en Comun */
 var player;
