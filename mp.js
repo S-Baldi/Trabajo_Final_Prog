@@ -75,11 +75,11 @@ class mp1 extends Phaser.Scene{
     .on('pointerout', () => this.add.text(660, 550, 'Jugar', { font: 'bold 20pt Arial', fontSize: '36px', fill: '#ffffff'}))
     .on('pointerdown', () => this.scene.start('escena1') && musicaMenu.stop()&& button.play({volume:0.5})) 
 
-    empezarSc2 = this.add.text(620, 600, 'Jugar Nivel 2', { font: 'bold 20pt Arial', fill: '#ffffff'})
+/*     empezarSc2 = this.add.text(620, 600, 'Jugar Nivel 2', { font: 'bold 20pt Arial', fill: '#ffffff'})
     .setInteractive()
     .on('pointerover', () => this.add.text(620, 600, 'Jugar Nivel 2', { font: 'bold 20pt Arial', fontSize: '36px', fill: '#FF2D00'}))
     .on('pointerout', () => this.add.text(620, 600, 'Jugar Nivel 2', { font: 'bold 20pt Arial', fontSize: '36px', fill: '#ffffff'}))
-    .on('pointerdown', () => this.scene.start('escena2') && musicaMenu.stop()&& button.play({volume:0.5}))
+    .on('pointerdown', () => this.scene.start('escena2') && musicaMenu.stop()&& button.play({volume:0.5})) */
 
     botonAyuda = this.add.text(850, 550, 'Ayuda', { font: 'bold 20pt Arial', fill: '#ffffff'})
     .setInteractive()
