@@ -179,6 +179,7 @@ class sc2 extends Phaser.Scene{
     musicaNivel2.play({volume: 0.2, loop: true});
 
     sonidoPower = this.sound.add('pauer');
+    sonidoHit = this.sound.add('hit');
 
     this.joystick = this.plugins.get('rexvirtualjoystickplugin').add(this, {
       x: 1200,
@@ -375,12 +376,16 @@ class sc2 extends Phaser.Scene{
     vidas -= 1;
     textVidas.setText('Vidas: '+ vidas)
     player_collider2.active = false;
+    sonidoHit.play();
+    this.cameras.main.shake(500, 0.009);
   }
   hitPlayer(player, enemy,)
   {
     vidas -= 1;
     textVidas.setText('Vidas: '+ vidas)
     player_collider.active = false;
+    sonidoHit.play();
+    this.cameras.main.shake(500, 0.009);
   }
 
   /* TEMPORIZADOR */

@@ -176,7 +176,8 @@ class sc1 extends Phaser.Scene{
     musicaNivel1 = this.sound.add('musicaLevel1');
     musicaNivel1.play({volume: 0.2, loop: true});
 
-    sonidoPower = this.sound.add('pauer');    
+    sonidoPower = this.sound.add('pauer');  
+    sonidoHit = this.sound.add('hit');
 
     spawn = Phaser.Math.FloatBetween(1, 3);
     spawnTime = 0;
@@ -248,11 +249,6 @@ class sc1 extends Phaser.Scene{
     if(!player_collider.active)
     {
       tempo+=delta
-      /* player.x = player.x +7
-      if(tempo>=300)
-      {
-      player.x = player.x -7
-      } */
       if(tempo>=2000) 
       {
         player_collider.active=true
@@ -357,6 +353,8 @@ class sc1 extends Phaser.Scene{
     vidas -= 1;
     textVidas.setText('Vidas: '+ vidas)
     player_collider.active = false;
+    sonidoHit.play();
+    this.cameras.main.shake(500, 0.009);
   }
   /* TEMPORIZADOR */
   onSecond() 
