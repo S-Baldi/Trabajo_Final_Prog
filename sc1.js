@@ -132,18 +132,7 @@ class sc1 extends Phaser.Scene{
       }),
       repeat: -1,
       frameRate: 7
-    }) 
-
-    /* PowerupAzul */
-  /*this.anims.create({
-      key: 'giroblue',
-      frames:this.anims.generateFrameNumbers('poderAzul.', {
-        start: 0,
-        end: 5
-      }),
-      repeat: -1
-    });    
-    powerAzul.anims.play('giroblue'); */
+    })  
 
     /* Colliders */
     this.physics.add.collider(player, solidos);
@@ -190,7 +179,7 @@ class sc1 extends Phaser.Scene{
     musicaNivel1 = this.sound.add('musicaLevel1');
     musicaNivel1.play({volume: 0.2, loop: true});
 
-    sonidoPower = this.sound.add('pauer');
+    sonidoPower = this.sound.add('pauer');    
 
     spawn = Phaser.Math.FloatBetween(1, 3);
     spawnTime = 0;
@@ -326,8 +315,8 @@ class sc1 extends Phaser.Scene{
     powerAzul = this.physics.add.sprite (Phaser.Math.Between(100, 1000), Phaser.Math.Between(100, 500), 'poderAzul');
     this.physics.add.collider(powerAzul, solidos);
     this.physics.add.overlap(player, powerAzul, this.PowerUpAzul, null, this);
-    powerAzul.setScale(0.12);
-  }  
+    powerAzul.setScale(0.12);  
+  }
   PowerUpAzul(player, powerAzul){    
     powerAzul.disableBody(true, true);
     player.setVelocityX(velocidadJugador = velocidadJugador + 100);

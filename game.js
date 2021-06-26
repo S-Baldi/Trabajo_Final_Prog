@@ -1,10 +1,10 @@
 var config = {
   type: Phaser.AUTO,
   scale: {
-    mode: Phaser.Scale.FIT,
-    autoCenter: Phaser.Scale.CENTER_BOTH,
-    width: window.innerWidth,
-    height: window.innerHeight,
+    /* mode: Phaser.Scale.FIT,
+    autoCenter: Phaser.Scale.CENTER_BOTH, */
+    width: 1366,
+    height: 768,
     },
   physics: {
       default: 'arcade',
@@ -17,6 +17,24 @@ var config = {
 };
 
 var game = new Phaser.Game(config);
+var resizeGame = function () {
+    let canvas = document.querySelector('canvas');
+    const { innerWidth, innerHeight } = window; //object destructuring
+    //const innerWidth = window.innerWidth;
+    //const innerHeight = window.innerHeight;
+
+    const ratio = innerWidth / innerHeight;
+
+    const gameRatio = game.config.width / game.config.height;
+
+    if (ratio < gameRatio) {
+        canvas.style.width = innerWidth + 'px';
+        canvas.style.height = innerWidth / gameRatio + 'px';
+    } else {
+        canvas.style.width = innerHeight * gameRatio + 'px';
+        canvas.style.height = innerHeight + 'px';
+    }
+}
 
 /* Variables en Comun */
 var player;
@@ -41,7 +59,6 @@ var timedEvent;
 var textGameOver;
 var velocidadJugador = 200;
 var scoreTotal = 0;
-var button;
 
 /* Variables Menu */
 var empezarSc1;
@@ -105,6 +122,8 @@ var musicaNivel1;
 var musicaNivel2;
 var musicaMenu;
 var sonidoCoin;
+var sonidoHit;
+var button;
 
 /* Powerups */
 var spawnTime;
@@ -116,8 +135,3 @@ var sonidoPower;
 
 /* Precarga */
 var textPrecarga; 
-
-/* Bala */
-/* var fireButton;
-var bala;
-var weapon; */

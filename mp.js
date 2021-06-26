@@ -34,7 +34,18 @@ class mp1 extends Phaser.Scene{
       key: 'river',
       frames: [ { key: 'dead', frame: 0} ],
       frameRate:20
-    })  
+    })
+
+    /* PowerupAzul */
+    this.anims.create({
+      key: 'giroblue',
+      frames:this.anims.generateFrameNumbers('poderAzul.', {
+        start: 0,
+        end: 5
+      }),
+      
+      repeat: -1
+    });
 
     /* Logo */
     fondoMenu = this.add.image(700, 300, 'fondo');
