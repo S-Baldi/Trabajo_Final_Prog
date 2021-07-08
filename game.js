@@ -1,40 +1,51 @@
-var config = {
-  type: Phaser.WEBGL,
-  scale: {
-    mode: Phaser.Scale.FIT,
-    autoCenter: Phaser.Scale.CENTER_BOTH,
-    width: window.innerWidth,
-    height: window.innerHeight,
-    },
-  physics: {
-      default: 'arcade',
-      arcade: {
-        gravity: { y: 350 },
-        debug: false
-      }
-  },
-  scene: [prec, mp1, sc1, sc2, h1, cr1, go1, gw1, go2, gw2]
+var resizeGame = function () {
+  let canvas = document.querySelector('canvas');
+  const { innerWidth, innerHeight } = window; //object destructuring
+  //const innerWidth = window.innerWidth;
+  //const innerHeight = window.innerHeight;
+
+  const ratio = innerWidth / innerHeight;
+
+  const gameRatio = game.config.width / game.config.height;
+
+  if (ratio < gameRatio) {
+      canvas.style.width = innerWidth + 'px';
+      canvas.style.height = innerWidth / gameRatio + 'px';
+  } else {
+      canvas.style.width = innerHeight * gameRatio + 'px';
+      canvas.style.height = innerHeight + 'px';
+  }
+}
+
+var playSound = function(sound){
+  sound.play("");
+}
+var stopSound = function(sound){
+  sound.stop();
+}
+
+window.onload = function () {
+  console.log('onload');
+  config = {
+      type: Phaser.AUTO,
+      width: window.innerWidth,
+      height: window.innerHeight,
+      soundOn: true,
+      physics: {
+          default: 'arcade',
+          arcade: {
+              gravity: { y: 300 },
+              debug: false
+          }
+      },
+      scene: [prec, mp1, sc1, sc2, h1, cr1, go1, gw1, go2, gw2]
+  };
+
+  game = new Phaser.Game(config);
+  window.focus();
+  resizeGame();
+  window.addEventListener('resize', resizeGame());
 };
-
-var game = new Phaser.Game(config);
-/* var resizeGame = function () {
-    let canvas = document.querySelector('canvas');
-    const { innerWidth, innerHeight } = window; //object destructuring
-    //const innerWidth = window.innerWidth;
-    //const innerHeight = window.innerHeight;
-
-    const ratio = innerWidth / innerHeight;
-
-    const gameRatio = game.config.width / game.config.height;
-
-    if (ratio < gameRatio) {
-        canvas.style.width = innerWidth + 'px';
-        canvas.style.height = innerWidth / gameRatio + 'px';
-    } else {
-        canvas.style.width = innerHeight * gameRatio + 'px';
-        canvas.style.height = innerHeight + 'px';
-    }
-} */
 
 /* Variables en Comun */
 var player;

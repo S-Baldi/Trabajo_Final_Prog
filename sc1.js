@@ -317,7 +317,7 @@ class sc1 extends Phaser.Scene{
   }
   PowerUpAzul(player, powerAzul){    
     powerAzul.disableBody(true, true);
-    player.setVelocityX(velocidadJugador = velocidadJugador + 100);
+    player.setVelocityX(velocidadJugador = velocidadJugador + 50);
     sonidoPower.play();
   }
                     /* PODER ROJO */
