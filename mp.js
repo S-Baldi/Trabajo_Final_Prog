@@ -4,8 +4,8 @@ class mp1 extends Phaser.Scene{
   }
 
   preload (){ 
-    let url = 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexvirtualjoystickplugin.min.js';
-    this.load.plugin('rexvirtualjoystickplugin', url, true);    
+    /* let url = 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexvirtualjoystickplugin.min.js';
+    this.load.plugin('rexvirtualjoystickplugin', url, true); */    
         
     /* Nivel 1 */
     this.load.tilemapTiledJSON('mapa', 'assets/Mapa/Sc1.json');
@@ -65,8 +65,8 @@ class mp1 extends Phaser.Scene{
     });
 
     /* Logo */
-    fondoMenu = this.add.image(700, 300, 'fondo');
-    logoMenu = this.add.image(700, 250, 'logo').setScale(0.8);
+    fondoMenu = this.add.image(683, 300, 'fondo');
+    logoMenu = this.add.image(683, 250, 'logo').setScale(0.8);
 
     /* Botones */
     empezarSc1 = this.add.text(660, 550, 'Jugar', { font: 'bold 20pt Arial', fill: '#ffffff'})
@@ -98,6 +98,19 @@ class mp1 extends Phaser.Scene{
 
     scoreTotal = 0;
     button = this.sound.add('button')
+
+    //FULLSCREEN
+    teclaF = this.input.keyboard.addKey('F');
+    teclaF.on('down', function (){
+      if (this.scale.isFullscreen)
+      {
+          this.scale.stopFullscreen();
+      }
+      else
+      {
+          this.scale.startFullscreen();
+      }
+    }, this);
   }
 
   update(){}

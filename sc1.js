@@ -182,7 +182,7 @@ class sc1 extends Phaser.Scene{
     spawn = Phaser.Math.FloatBetween(1, 3);
     spawnTime = 0;
 
-    this.joystick = this.plugins.get('rexvirtualjoystickplugin').add(this, {
+    /* this.joystick = this.plugins.get('rexvirtualjoystickplugin').add(this, {
       x: 1200,
       y: 600,
       radius: 100,
@@ -192,10 +192,24 @@ class sc1 extends Phaser.Scene{
     .on('update', this.dumpJoyStickState, this);
 
     this.text = this.add.text(0, 0);
-    this.dumpJoyStickState();
+    this.dumpJoyStickState(); */
+
+    teclaF = this.input.keyboard.addKey('F');
+    
   }
 
   update(time, delta){
+    teclaF.on('down', function (){
+      if (this.scale.isFullscreen)
+      {
+          this.scale.stopFullscreen();
+      }
+      else
+      {
+          this.scale.startFullscreen();
+      }
+    }, this);
+    
     if (teclaR.isDown)
     {
       this.scene.restart();      
@@ -208,16 +222,16 @@ class sc1 extends Phaser.Scene{
       musicaNivel1.stop();
     }
      /* CONTROLES JOYSTICK */
-    var leftKeyDown = this.joystick.left;
+    /* var leftKeyDown = this.joystick.left;
     var rightKeyDown = this.joystick.right;
-    var upKeyDown = this.joystick.up;
+    var upKeyDown = this.joystick.up; */
 
-    if (cursors.left.isDown || leftKeyDown)
+    if (cursors.left.isDown /* || leftKeyDown */)
     {
       player.setVelocityX(-velocidadJugador);
       player.anims.play('left', true);
     }
-    else if (cursors.right.isDown || rightKeyDown)
+    else if (cursors.right.isDown /* || rightKeyDown */)
     {
       player.setVelocityX(velocidadJugador);
       player.anims.play('right', true);
@@ -227,7 +241,7 @@ class sc1 extends Phaser.Scene{
       player.setVelocityX(0);
       player.anims.play('turn');
     }
-    if ((cursors.up.isDown || upKeyDown) && player.body.blocked.down)
+    if ((cursors.up.isDown /* || upKeyDown */) && player.body.blocked.down)
     {     
       player.setVelocityY(-330);           
     }
@@ -294,7 +308,7 @@ class sc1 extends Phaser.Scene{
       }
     }
   }
-  dumpJoyStickState() {
+ /*  dumpJoyStickState() {
     var cursorKeys = this.joystick.createCursorKeys();
     var s = 'Key down: ';
     for (var name in cursorKeys) {
@@ -306,7 +320,7 @@ class sc1 extends Phaser.Scene{
     s += ('Force: ' + Math.floor(this.joystick.force * 100) / 100 + '\n');
     s += ('Angle: ' + Math.floor(this.joystick.angle * 100) / 100 + '\n');
     //this.text.setText(s);
-  }
+  } */
   /* POWERUPS */
                     /* PODER AZUL */
   spawnPowerUpAzul(){    
