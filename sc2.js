@@ -10,6 +10,7 @@ class sc2 extends Phaser.Scene{
       cursors = this.input.keyboard.createCursorKeys();
       teclaR = this.input.keyboard.addKey('R');
       teclaP = this.input.keyboard.addKey('P');
+      teclaF = this.input.keyboard.addKey('F');
     }
 
     mapa2 = this.make.tilemap({ key : 'mapa2'});
@@ -195,6 +196,16 @@ class sc2 extends Phaser.Scene{
   }
 
   update(time, delta){
+    teclaF.on('down', function (){
+      if (this.scale.isFullscreen)
+      {
+          this.scale.stopFullscreen();
+      }
+      else
+      {
+          this.scale.startFullscreen();
+      }
+    }, this);
     if (teclaR.isDown)
     {
       this.scene.restart();

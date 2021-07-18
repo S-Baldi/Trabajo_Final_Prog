@@ -13,6 +13,7 @@ class sc1 extends Phaser.Scene{
       cursors = this.input.keyboard.createCursorKeys();
       teclaR = this.input.keyboard.addKey('R');
       teclaP = this.input.keyboard.addKey('P');
+      teclaF = this.input.keyboard.addKey('F');
     }
 
     mapa = this.make.tilemap({ key : 'mapa'});
@@ -193,8 +194,6 @@ class sc1 extends Phaser.Scene{
 
     this.text = this.add.text(0, 0);
     this.dumpJoyStickState(); */
-
-    teclaF = this.input.keyboard.addKey('F');
     
   }
 
