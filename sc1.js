@@ -149,7 +149,7 @@ class sc1 extends Phaser.Scene{
     /* Variables */
     scoreNivel1 = 0;
     scoreText1 = this.add.text(550, 0, 'Puntaje: ' +scoreNivel1, 
-    { font: 'bold 30pt Arial', fontSize: '36px', fill: '#fff', align:'center'});    
+    { font: 'bold 30pt Arial', fontSize: '36px', fill: '#fff', align:'center',});    
     scoreText1.scrollFactorX = 0;
     scoreText1.scrollFactorY = 0;
     

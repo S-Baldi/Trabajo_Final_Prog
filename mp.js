@@ -66,13 +66,13 @@ class mp1 extends Phaser.Scene{
 
     /* Logo */
     fondoMenu = this.add.image(683, 300, 'fondo');
-    logoMenu = this.add.image(683, 250, 'logo').setScale(0.8);
+    logoMenu = this.add.image(683, 250, 'logo');
 
     /* Botones */
-    empezarSc1 = this.add.text(660, 550, 'Jugar', { font: 'bold 20pt Arial', fill: '#ffffff'})
+    empezarSc1 = this.add.text(640, 550, 'Jugar', { font: 'bold 30pt Arial', fill: '#ffffff'})
     .setInteractive()
-    .on('pointerover', () => this.add.text(660, 550, 'Jugar', { font: 'bold 20pt Arial', fontSize: '36px', fill: '#FF2D00'}))
-    .on('pointerout', () => this.add.text(660, 550, 'Jugar', { font: 'bold 20pt Arial', fontSize: '36px', fill: '#ffffff'}))
+    .on('pointerover', () => this.add.text(640, 550, 'Jugar', { font: 'bold 30pt Arial', fontSize: '36px', fill: '#FF2D00'}))
+    .on('pointerout', () => this.add.text(640, 550, 'Jugar', { font: 'bold 30pt Arial', fontSize: '36px', fill: '#ffffff'}))
     .on('pointerdown', () => this.scene.start('escena1') && musicaMenu.stop()&& button.play({volume:0.5})) 
 
 /*     empezarSc2 = this.add.text(620, 600, 'Jugar Nivel 2', { font: 'bold 20pt Arial', fill: '#ffffff'})
@@ -81,16 +81,16 @@ class mp1 extends Phaser.Scene{
     .on('pointerout', () => this.add.text(620, 600, 'Jugar Nivel 2', { font: 'bold 20pt Arial', fontSize: '36px', fill: '#ffffff'}))
     .on('pointerdown', () => this.scene.start('escena2') && musicaMenu.stop()&& button.play({volume:0.5})) */
 
-    botonAyuda = this.add.text(850, 550, 'Ayuda', { font: 'bold 20pt Arial', fill: '#ffffff'})
+    botonAyuda = this.add.text(850, 550, 'Ayuda', { font: 'bold 30pt Arial', fill: '#ffffff'})
     .setInteractive()
-    .on('pointerover', () => this.add.text(850, 550, 'Ayuda', { font: 'bold 20pt Arial', fontSize: '36px', fill: '#FF2D00'}))
-    .on('pointerout', () => this.add.text(850, 550, 'Ayuda', { font: 'bold 20pt Arial', fontSize: '36px', fill: '#ffffff'}))
+    .on('pointerover', () => this.add.text(850, 550, 'Ayuda', { font: 'bold 30pt Arial', fontSize: '36px', fill: '#FF2D00'}))
+    .on('pointerout', () => this.add.text(850, 550, 'Ayuda', { font: 'bold 30pt Arial', fontSize: '36px', fill: '#ffffff'}))
     .on('pointerdown', () => this.scene.start('ayuda') && musicaMenu.stop()&& button.play({volume:0.5}))
 
-    botonCreditos = this.add.text(450, 550, 'Créditos', { font: 'bold 20pt Arial', fill: '#ffffff'})
+    botonCreditos = this.add.text(400, 550, 'Créditos', { font: 'bold 30pt Arial', fill: '#ffffff'})
     .setInteractive()
-    .on('pointerover', () => this.add.text(450, 550, 'Créditos', { font: 'bold 20pt Arial', fontSize: '36px', fill: '#FF2D00'}))
-    .on('pointerout', () => this.add.text(450, 550, 'Créditos', { font: 'bold 20pt Arial', fontSize: '36px', fill: '#ffffff'}))
+    .on('pointerover', () => this.add.text(400, 550, 'Créditos', { font: 'bold 30pt Arial', fontSize: '36px', fill: '#FF2D00'}))
+    .on('pointerout', () => this.add.text(400, 550, 'Créditos', { font: 'bold 30pt Arial', fontSize: '36px', fill: '#ffffff'}))
     .on('pointerdown', () => this.scene.start('creditos') && musicaMenu.stop() && button.play({volume:0.5})) 
 
     musicaMenu = this.sound.add('musicaMenu');
